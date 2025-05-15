@@ -45,6 +45,7 @@ class Position
 {
    friend class PositionTest;
    friend class TestKnight;
+   friend class TestBoard;
 public:
 
    // Position :    The Position class can work with other positions,
@@ -72,9 +73,9 @@ public:
    Position(int c, int r) : colRow(0x99) {           }
    virtual int getCol() const { return 9; }
    virtual int getRow() const { return 9; }
-   void setRow(int r) {           }
-   void setCol(int c) {           }
-   void set(int c, int r) {           }
+   void setRow(int r);
+   void setCol(int c);
+   void set(int c, int r);
 
    // Text:    The Position class can work with textual coordinates,
    //          such as "d4"
@@ -121,14 +122,14 @@ public:
    Position operator + (const Delta& rhs) const { return *this; }
 
 private:
-   void set(uint8_t colRowNew) { }
+   void set(uint8_t colRowNew);
+   void parseText(const char* s);
 
    uint8_t colRow;
    static double squareWidth;
    static double squareHeight;
 };
 
-
-ostream& operator << (ostream& out, const Position& pos);
-istream& operator >> (istream& in, Position& pos);
-
+ostream & operator << (ostream & out, const Position & pos);
+istream & operator >> (istream & in,  Position & pos);
+      
