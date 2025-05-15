@@ -24,27 +24,27 @@ Move::Move()
    source = INVALID;
 }
 
-Move::Move(string s)
+Move::Move(const string & rhs)
 {
-   read(s);
+   read(rhs);
 
 }
 
-void Move::read(string s)
+void Move::read(const string & rhs)
 {
-   if (s.length() == 4 || s.length() == 5)
+   if (rhs.length() == 4 || rhs.length() == 5)
    {
-      source = s.substr(0, 2);
-      dest = s.substr(2, 2);
+      source = rhs.substr(0, 2);
+      dest = rhs.substr(2, 2);
    }
 
-   if (s.length() == 4)
+   if (rhs.length() == 4)
    {
       moveType = MOVE;
    }
-   else if (s.length() == 5)
+   else if (rhs.length() == 5)
    {
-      char special = s[4];
+      char special = rhs[4];
       switch (special)
       {
       case 'E':

@@ -33,18 +33,19 @@ public:
 
    // constructor
    Move();
-   Move(const string & rhs) {}
+   Move(const string & rhs);
    
    bool operator<(const Move & rhs) const;
+   void operator=(const string& s);
    bool operator==(const Move& rhs) const;
-   void read(const string & rhs) {}
+   void read(const string & rhs);
    
    string getText() const;
 
 
 private:
-   char letterFromPieceType(PieceType pt)     const { return 'z'; }
-   PieceType pieceTypeFromLetter(char letter) const { return SPACE; }
+   char letterFromPieceType(PieceType pt)     const;
+   PieceType pieceTypeFromLetter(char letter) const;
 
 
 
