@@ -23,15 +23,21 @@ using namespace std;
  ***********************************************/
 const Piece & Piece::operator = (const Piece & rhs)
 {
+   fWhite = rhs.fWhite;
+   lastMove = rhs.lastMove;
+   nMoves = rhs.nMoves;
 
    return *this;
 }
+
+
 
 /************************************************
  * PIECE : GET MOVES
  * Iterate through the moves decorator to allow a piece to move
  ***********************************************/
-void Piece::getMoves(set <Move> & movesSet, const Board & board) const
+int Piece::getMoves(set <Move> & movesSet, const Board & board) const
 {
+   return nMoves;
 }
 

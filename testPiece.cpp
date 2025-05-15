@@ -12,7 +12,9 @@
 #include "piece.h"     
 #include "board.h"
 #include "uiDraw.h"
-#include <cassert>      
+#include <cassert>   
+
+#include <iostream>
 
 
  /*************************************
@@ -333,6 +335,7 @@ void TestPiece::justMoved_hasMoved()
    int currentMove = 7;
    bool justMoved = true;
    // exercise
+
    justMoved = piece.justMoved(currentMove);
    // verify
    assertUnit(justMoved == false);
