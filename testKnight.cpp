@@ -31,19 +31,25 @@ void TestKnight::getMoves_end()
 {
    // SETUP
    BoardEmpty board;
+   
    Knight knight(7, 7, false /*white*/); // we will reset all this.
    knight.fWhite = true;
    knight.position.colRow = 0x60;
    board.board[6][0] = &knight;
+   
    Black black(PAWN);
-   board.board[4][1] = &black;
+   board.board[4][1] = &black;  //uppercase is black, lowercase is white
+   
    White white(PAWN);
    board.board[5][2] = &white;
+   
    set <Move> moves;
+   
    Move g1e2p;
    g1e2p.source.colRow = 0x60;
    g1e2p.dest.colRow = 0x41;
    g1e2p.capture = PAWN;
+   
    Move g1h3;
    g1h3.source.colRow = 0x60;
    g1h3.dest.colRow = 0x52;
@@ -86,11 +92,11 @@ void TestKnight::getMoves_blocked()
  * +---a-b-c-d-e-f-g-h---+
  * |                     |
  * 8                     8
- * 7       p   p         7
- * 6     p       p       6
+ * 7       P   P         7
+ * 6     P       P       6
  * 5        (n)          5
- * 4     p       p       4
- * 3       p   p         3
+ * 4     P       P       4
+ * 3       P   P         3
  * 2                     2
  * 1                     1
  * |                     |

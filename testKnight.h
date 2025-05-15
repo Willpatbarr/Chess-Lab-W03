@@ -27,7 +27,7 @@ public:
       getMoves_free();
       getMoves_end();
 
-      getType();
+      getType(); // passing 20%
       
       report("Knight");
    }
