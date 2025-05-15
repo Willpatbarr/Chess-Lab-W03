@@ -51,7 +51,7 @@ void Knight::getMoves(set <Move>& moves, const Board& board) const
       
       // create the move and add it to the moves set
       Move move;
-      move.source = position;
+      //move.getSrc() = position;
       
    }
 }

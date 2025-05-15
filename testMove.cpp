@@ -537,17 +537,26 @@ void TestMove::letterFromPieceType_rook()
  **************************************/
 void TestMove::letterFromPieceType_queen()
 {
-   // setup
+   //SETUP
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   char result = move.letterFromPieceType(QUEEN);
-
+   char letter = move.letterFromPieceType(QUEEN);
    // verify
-   assertUnit(result == 'q');
-
-   // teardown
-}
+   assertUnit(letter == 'q');
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * LETTER FROM PIECE TYPE king
@@ -556,18 +565,26 @@ void TestMove::letterFromPieceType_queen()
  **************************************/
 void TestMove::letterFromPieceType_king()
 {
-   // setup
+   //SETUP
    Move move;
-
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move:: MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   char result = move.letterFromPieceType(KING);
-
+   char letter = move.letterFromPieceType(KING);
    // verify
-   assertUnit(result == 'k');
-
-   // teardown
-}
+   assertUnit(letter  == 'k');
+   assertUnit(0x77    == move.source.colRow);
+   assertUnit(0x77    == move.source.colRow);
+   assertUnit(KNIGHT  == move.promote);
+   assertUnit(BISHOP  == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * PIECE TYPE FROM LETTER pawn
@@ -578,13 +595,23 @@ void TestMove::pieceTypeFromLetter_pawn()
 {
    // setup
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   PieceType result = move.pieceTypeFromLetter('p');
-
+   PieceType pt = move.pieceTypeFromLetter('p');
    // verify
-   assertUnit(result == PAWN);
-
+   assertUnit(pt == PAWN);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.dest.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
    // teardown
 }
 
@@ -597,13 +624,23 @@ void TestMove::pieceTypeFromLetter_bishop()
 {
    // setup
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   PieceType result = move.pieceTypeFromLetter('b');
-
+   PieceType pt = move.pieceTypeFromLetter('b');
    // verify
-   assertUnit(result == BISHOP);
-
+   assertUnit(pt == BISHOP);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.dest.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
    // teardown
 }
 
@@ -616,13 +653,23 @@ void TestMove::pieceTypeFromLetter_knight()
 {
    // setup
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   PieceType result = move.pieceTypeFromLetter('n');
-
+   PieceType pt = move.pieceTypeFromLetter('n');
    // verify
-   assertUnit(result == KNIGHT);
-
+   assertUnit(pt == KNIGHT);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.dest.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
    // teardown
 }
 
@@ -635,13 +682,23 @@ void TestMove::pieceTypeFromLetter_rook()
 {
    // setup
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   PieceType result = move.pieceTypeFromLetter('r');
-
+   PieceType pt = move.pieceTypeFromLetter('r');
    // verify
-   assertUnit(result == ROOK);
-
+   assertUnit(pt == ROOK);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.dest.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
    // teardown
 }
 
@@ -654,13 +711,23 @@ void TestMove::pieceTypeFromLetter_queen()
 {
    // setup
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   PieceType result = move.pieceTypeFromLetter('q');
-
+   PieceType pt = move.pieceTypeFromLetter('q');
    // verify
-   assertUnit(result == QUEEN);
-
+   assertUnit(pt == QUEEN);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.dest.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
    // teardown
 }
 
@@ -673,13 +740,23 @@ void TestMove::pieceTypeFromLetter_king()
 {
    // setup
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   PieceType result = move.pieceTypeFromLetter('k');
-
+   PieceType pt = move.pieceTypeFromLetter('k');
    // verify
-   assertUnit(result == KING);
-
+   assertUnit(pt == KING);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.dest.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
    // teardown
 }
 
