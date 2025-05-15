@@ -10,20 +10,21 @@
 #include "position.h"
 #include <iostream>
 
-/******************************************
- * PARSE TEXT
- * method to parse text into a colRow
- ******************************************/
+ /******************************************
+  * PARSE TEXT
+  * method to parse text into a colRow
+  ******************************************/
 void Position::parseText(const char* s)
 {
    if (s == nullptr   // null pointer
-       || s[0] < 'a'  // less than a
-       || s[0] > 'h'  // greater than h
-       || s[1] < '1'  // less than 1
-       || s[1] > '8') // greater than 8
+      || s[0] < 'a'  // less than a
+      || s[0] > 'h'  // greater than h
+      || s[1] < '1'  // less than 1
+      || s[1] > '8') // greater than 8
    {
       colRow = 0xff;  // invalid position hex code
-   } else {
+   }
+   else {
       int col = s[0] - 'a'; // subtracts the ASCII value of a to get the index
       int row = s[1] - '1'; // subtracts the ASCII value of 1 to get the index
       set((col << 4) | row);
@@ -73,7 +74,8 @@ void Position::set(int c, int r) {
 void Position::set(uint8_t colRowNew) {
    if (colRowNew & 0x88) {
       colRow = 0xff;
-   } else {
+   }
+   else {
       colRow = colRowNew;
    }
 }
@@ -81,7 +83,7 @@ void Position::set(uint8_t colRowNew) {
 /******************************************
  * POSITION INSERTION OPERATOR
  ******************************************/
-ostream & operator << (ostream & out, const Position & rhs)
+ostream& operator << (ostream& out, const Position& rhs)
 {
    out << "error";
    return out;
@@ -90,7 +92,9 @@ ostream & operator << (ostream & out, const Position & rhs)
 /*************************************
  * POSITION EXTRACTION OPERATOR
  **************************************/
-istream & operator >> (istream & in,  Position & rhs)
+istream& operator >> (istream& in, Position& rhs)
 {
    return in;
 }
+
+
