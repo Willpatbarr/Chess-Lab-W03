@@ -58,22 +58,22 @@ public:
    virtual const Piece& operator = (const Piece& rhs);
 
    // getters
-   virtual bool operator == (PieceType pt) const { return true;         }
-   virtual bool operator != (PieceType pt) const { return true;         }
-   virtual bool isWhite()                  const { return true;         }
-   virtual bool isMoved()                  const { return true;         }
-   virtual int  getNMoves()                const { return 9999;         }
+   virtual bool operator == (PieceType pt) const { return getType() == pt; }
+   virtual bool operator != (PieceType pt) const { return getType() != pt;      }
+   virtual bool isWhite()                  const { return fWhite;         }
+   virtual bool isMoved()                  const { return lastMove != 0;   }
+   virtual int  getNMoves()                const { return nMoves;         }
    virtual void decrementNMoves()                {                      }
    virtual const Position & getPosition()  const { return Position();   }
-   virtual bool justMoved(int currentMove) const { return true;         }
+   virtual bool justMoved(int cMove) const { return (cMove - lastMove) == 1;}
 
    // setter
-   virtual void setLastMove(int currentMove)     {                      }
+   virtual void setLastMove(int cMove)     { lastMove = cMove; ++nMoves;}
 
    // overwritten by the various pieces
    virtual PieceType getType()                                    const = 0;
    virtual void display(ogstream * pgout)                         const = 0;
-   void getMoves(set <Move> & moves, const Board & board) const;
+   int getMoves(set <Move> & moves, const Board & board) const;
 
 protected:
 

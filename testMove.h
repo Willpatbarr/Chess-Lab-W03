@@ -60,6 +60,13 @@ public:
       pieceTypeFromLetter_king();
       pieceTypeFromLetter_queen();
 
+      // Overload
+      equal_not();
+      equal_equals();
+      lessthan_lessthan();
+      lessthan_equals();
+      lessthan_greaterthan();
+
       report("Move");
    }
 private:
@@ -99,5 +106,11 @@ private:
    void pieceTypeFromLetter_rook();
    void pieceTypeFromLetter_king();
    void pieceTypeFromLetter_queen();
+
+   void equal_not();
+   void equal_equals();
+   void lessthan_lessthan();
+   void lessthan_equals();
+   void lessthan_greaterthan();
 
 };

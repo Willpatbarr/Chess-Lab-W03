@@ -24,13 +24,7 @@ Move::Move()
    source = INVALID;
 }
 
-Move::Move(const string & rhs)
-{
-   read(rhs);
-
-}
-
-void Move::read(const string & rhs)
+void Move::read(const string& rhs)
 {
    if (rhs.length() == 4 || rhs.length() == 5)
    {
@@ -119,43 +113,10 @@ string Move::getText() const
 }
 
 
-void Move::operator=(const string& s)
-{
-   read(s);
-}
 
 
 
-bool Move::operator<(const Move& rhs) const {
-   if (dest.getRow() < rhs.dest.getRow())
-   {
 
-      return false;
-   }
-   else if (dest.getRow() == rhs.dest.getRow())
-   {
-      if (dest.getCol() != rhs.dest.getCol())
-      {
-         cout << 2 << endl;
-
-         return dest.getCol() < rhs.dest.getCol();
-      }
-      else if (source.getRow() < rhs.source.getRow())
-      {
-         cout << 3 << endl;
-
-         return true;
-      }
-      else if (source.getRow() == rhs.source.getRow() &&
-      source.getCol() < rhs.source.getCol())
-      {
-         cout << 4 << endl;
-
-         return true;
-      }
-   }
-   return false;
-}
 
 bool Move::operator==(const Move& rhs) const
 {
@@ -191,8 +152,4 @@ PieceType Move::pieceTypeFromLetter(char letter) const
    default:  return SPACE;
    }
 }
-
-
-
-
 
