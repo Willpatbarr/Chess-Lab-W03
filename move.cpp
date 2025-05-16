@@ -20,12 +20,19 @@ using namespace std;
  ***************************************************/
 Move::Move()
 {
-   dest = INVALID;
-   source = INVALID;
+   dest = 0xff;
+   source = 0xff;
+   promote = SPACE;
+   capture = SPACE;
+   moveType = MOVE;
+   isWhite = true;
 }
 
 void Move::read(const string& rhs)
 {
+   promote = SPACE;
+   capture = SPACE;
+
    if (rhs.length() == 4 || rhs.length() == 5)
    {
       source = rhs.substr(0, 2);

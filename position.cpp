@@ -30,41 +30,38 @@ void Position::parseText(const char* s)
       set((col << 4) | row);
    }
 }
+/******************************************
+ * SETROW
+ ******************************************/
+void Position::setRow(int r) 
+{
+   if (r >= 0 && r < 8) 
+      set((colRow & 0xf0) + (char)r);
+   else
+      set(0xff);
+}
 
 /******************************************
  * SETCOL
  ******************************************/
-void Position::setCol(int c) {
-   if (c < 0 || c > 7) {
-      colRow = 0xff;
-      return;
-   }
-
-   uint8_t row = isValid() ? (colRow & 0x0F) : 0;
-   set((c << 4) | row);
+void Position::setCol(int c) 
+{
+   if (c >= 0 && c < 8)
+      set((colRow & 0x0f) + ((char)c << 4));
+   else
+      set(0xff);
 }
 
-/******************************************
- * SETROW
- ******************************************/
-void Position::setRow(int r) {
-   if (r < 0 || r > 7) {
-      colRow = 0xff;
-      return;
-   }
-
-   uint8_t col = isValid() ? (colRow & 0xF0) : 0;
-   set(col | (r & 0x0F));
-}
 
 /******************************************
  * SET
  * uses two ints
  ******************************************/
-void Position::set(int c, int r) {
-   colRow = (c << 4) | (r & 0x0F);
-   if (isInvalid())
-      colRow = 0xff;
+void Position::set(int c, int r) 
+{
+   setRow(r);
+   setCol(c);
+   
 }
 
 /******************************************
@@ -85,7 +82,12 @@ void Position::set(uint8_t colRowNew) {
  ******************************************/
 ostream& operator << (ostream& out, const Position& rhs)
 {
-   out << "error";
+   if (rhs.isValid())
+      out << (char)(rhs.getCol() + 'a')
+          << (char)(rhs.getRow() + '1');
+
+   else
+      out << "error";
    return out;
 }
 
@@ -94,6 +96,19 @@ ostream& operator << (ostream& out, const Position& rhs)
  **************************************/
 istream& operator >> (istream& in, Position& rhs)
 {
+   char text[3] = {};
+   in >> text[0] >> text[1];
+   if (in.fail())
+   {
+      in.clear();
+      in.ignore();
+      throw string("Error reading coordinates!");
+   }
+   else
+   {
+      rhs = text;
+   }
+
    return in;
 }
 

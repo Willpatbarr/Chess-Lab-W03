@@ -22,10 +22,14 @@ void TestMove::constructor_default()
 {
    //setup
    //exercise
-   Move move;
+   Move moveTest;
    //verify
-   assertUnit(move.source == INVALID);
-   assertUnit(move.dest == INVALID);
+   assertUnit(0xff == moveTest.source.colRow);
+   assertUnit(0xff == moveTest.dest.colRow);
+   assertUnit(SPACE == moveTest.promote);
+   assertUnit(SPACE == moveTest.capture);
+   assertUnit(Move::MOVE == moveTest.moveType);
+   assertUnit(true == moveTest.isWhite);
    //teardown
 }
 
@@ -37,20 +41,17 @@ void TestMove::constructor_default()
  *         type  =MOVE
  **************************************/
 void TestMove::constructString_simple()
-{
-   //setup
-   //exercise
+{  // Setup
+   // Exercise
    Move move("e5e6");
-
-   //verify
-   assertUnit(move.source.getCol() == 4);
-   assertUnit(move.source.getRow() == 4);
-   assertUnit(move.dest.getCol() == 4);
-   assertUnit(move.dest.getRow() == 5);
-   assertUnit(move.moveType == Move::MoveType::MOVE);
-
-   //teardown
-}
+   // VERIFY
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x45 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::MOVE == move.moveType);
+   assertUnit(true == move.isWhite);
+}  //Teardown
 
 /*************************************
  * READ simple move
@@ -60,24 +61,25 @@ void TestMove::constructString_simple()
  *         type  =MOVE
  **************************************/
 void TestMove::read_simple()
-{
-
-   //setup
-   Move m;
-
-   //exercise
-   m.read("e5e6");
-
-
-   //verify
-   assertUnit(m.source.getRow() == 4);
-   assertUnit(m.source.getCol() == 4);
-   assertUnit(m.dest.getCol() == 4);
-   assertUnit(m.dest.getRow() == 5);
-   assertUnit(m.moveType == Move::MoveType::MOVE);
-   //teardown
-
-}
+{  // Setup
+   Move move;
+   move.source.colRow = 0xff;
+   move.dest.colRow = 0xff;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
+   // Exercise
+   move.read(string("e5e6"));
+   // VERIFY
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x45 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::MOVE == move.moveType);
+   assertUnit(false == move.isWhite);
+}  //Teardown
 
 /*************************************
  * READ capture move
@@ -88,23 +90,25 @@ void TestMove::read_simple()
  *         capture=ROOK
  **************************************/
 void TestMove::read_capture()
-{
-   //setup
-   Move m;
-   //exercise
-
-   m.read("e5d6r");
-
-
-   //verify
-   assertUnit(m.source.getRow() == 4);
-   assertUnit(m.source.getCol() == 4);
-   assertUnit(m.dest.getCol() == 3);
-   assertUnit(m.dest.getRow() == 5);
-   assertUnit(m.moveType == Move::MoveType::MOVE);
-   assertUnit(m.capture == ROOK);
-   //teardown
-}
+{  // Setup
+   Move move;
+   move.source.colRow = 0xff;
+   move.dest.colRow = 0xff;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text= "ERROR";
+   // Exercise
+   move.read(string("e5e6r"));
+   // VERIFY
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x45 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(ROOK == move.capture);
+   assertUnit(Move::MOVE == move.moveType);
+   assertUnit(false == move.isWhite);
+}  //Teardown
 
 /*************************************
  * READ enpassant move
@@ -187,23 +191,25 @@ void TestMove::read_castleQueen()
  *         type  =MOVE
  **************************************/
 void TestMove::assign_simple()
-{
-   // setup
-   string moveText = "e5e6";
-
-   // exercise
+{  //SETUP
    Move move;
-   move = moveText;
-
-   // verify
-   assertUnit(move.source.getCol() == 4);
-   assertUnit(move.source.getRow() == 4);
-   assertUnit(move.dest.getCol() == 4);
-   assertUnit(move.dest.getRow() == 5);
-   assertUnit(move.moveType == Move::MOVE);
-   // teardown
-
-}
+   move.source.colRow = 0x44;
+   move.dest.colRow = 0x45;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
+   // EXERCISE
+   move = string("e5e6");
+   // VERIFY
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x45 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::MOVE == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * ASSIGN capture move
@@ -214,24 +220,25 @@ void TestMove::assign_simple()
  *         capture=ROOK
  **************************************/
 void TestMove::assign_capture()
-{
-   // setup
-   string moveText = "e5d6r";
-
-   // exercise
+{  //SETUP
    Move move;
-   move = moveText;
-
-   // verify
-   assertUnit(move.source.getCol() == 4);
-   assertUnit(move.source.getRow() == 4);
-   assertUnit(move.dest.getCol() == 3);
-   assertUnit(move.dest.getRow() == 5);
-   assertUnit(move.moveType == Move::MOVE);
-   assertUnit(move.capture == ROOK);
-   // teardown
-
-}
+   move.source.colRow = 0x44;
+   move.dest.colRow = 0x35;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
+   // EXERCISE
+   move = string("e5d6r");
+   // VERIFY
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x35 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(ROOK == move.capture);
+   assertUnit(Move::MOVE == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * ASSIGN enpassant move
@@ -241,23 +248,25 @@ void TestMove::assign_capture()
  *         type  =ENPASSANT
  **************************************/
 void TestMove::assign_enpassant()
-{
-   // setup
-   string moveText = "e5f6E";
-
-   // exercise
+{  //SETUP
    Move move;
-   move = moveText;
-
-   // verify
-   assertUnit(move.source.getCol() == 4);
-   assertUnit(move.source.getRow() == 4);
-   assertUnit(move.dest.getCol() == 5);
-   assertUnit(move.dest.getRow() == 5);
-   assertUnit(move.moveType == Move::ENPASSANT);
-
-   // teardown
-}
+   move.source.colRow = 0x44;
+   move.dest.colRow = 0x55;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
+   // EXERCISE
+   move = string("e5f6E");
+   // VERIFY
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x55 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::ENPASSANT == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * ASSIGN king side castle
@@ -267,23 +276,25 @@ void TestMove::assign_enpassant()
  *         type  =CASTLE_KING
  **************************************/
 void TestMove::assign_castleKing()
-{
-   // setup
-   string moveText = "e1g1c";
-
-   // exercise
+{  //SETUP
    Move move;
-   move = moveText;
-
-   // verify
-   assertUnit(move.source.getCol() == 4);
-   assertUnit(move.source.getRow() == 0);
-   assertUnit(move.dest.getCol() == 6);
-   assertUnit(move.dest.getRow() == 0);
-   assertUnit(move.moveType == Move::CASTLE_KING);
-
-   // teardown
-}
+   move.source.colRow = 0x40;
+   move.dest.colRow = 0x60;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
+   // EXERCISE
+   move = string("e1g1c");
+   // VERIFY
+   assertUnit(0x40 == move.source.colRow);
+   assertUnit(0x60 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::CASTLE_KING == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * ASSIGN queen side castle
@@ -293,23 +304,25 @@ void TestMove::assign_castleKing()
  *         type  =CASTLE_QUEEN
  **************************************/
 void TestMove::assign_castleQueen()
-{
-   // setup
-   string moveText = "e1c1C";
-
-   // exercise
+{  //SETUP
    Move move;
-   move = moveText;
-
-   // verify
-   assertUnit(move.source.getCol() == 4);
-   assertUnit(move.source.getRow() == 0);
-   assertUnit(move.dest.getCol() == 2);
-   assertUnit(move.dest.getRow() == 0);
-   assertUnit(move.moveType == Move::CASTLE_QUEEN);
-
-   // teardown
-}
+   move.source.colRow = 0x40;
+   move.dest.colRow = 0x20;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
+   // EXERCISE
+   move = string("e1c1C");
+   // VERIFY
+   assertUnit(0x40 == move.source.colRow);
+   assertUnit(0x20 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::CASTLE_QUEEN == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * GET TEXT simple move
@@ -319,21 +332,27 @@ void TestMove::assign_castleQueen()
  * Output:  e5e6
  **************************************/
 void TestMove::getText_simple()
-{
-   // setup
+{  //SETUP
    Move move;
-   move.source.set(4, 4);
-   //move.source.colRow = 4,4;
-   move.dest.set(4, 5);
+   move.source.colRow = 0x44;
+   move.dest.colRow = 0x45;
+   move.promote = SPACE;
+   move.capture = SPACE;
    move.moveType = Move::MOVE;
-
-   // exercise
-   string result = move.getText();
-
-   // verify
-   assertUnit(result == "e5e6");
-   // teardown
-}
+   move.isWhite = true;
+   move.text = "";
+   string s;
+   // EXERCISE
+   s = move.getText();
+   // VERIFY
+   assertUnit(s == string("e5e6"));
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x45 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::MOVE == move.moveType);
+   assertUnit(true == move.isWhite);
+} // teardown
 
 /*************************************
  * GET TEXT capture
@@ -344,22 +363,27 @@ void TestMove::getText_simple()
  * Output:  e5e6r
  **************************************/
 void TestMove::getText_capture()
-{
-   // setup
+{  //SETUP
    Move move;
-   move.source.set(4, 4);
-   move.dest.set(4, 5);
-   move.moveType = Move::MOVE;
+   move.source.colRow = 0x44;
+   move.dest.colRow = 0x45;
+   move.promote = SPACE;
    move.capture = ROOK;
-
-   // exercise
-   string result = move.getText();
-
-   // verify
-   assertUnit(result == "e5e6r");
-
-   // teardown
-}
+   move.moveType = Move::MOVE;
+   move.isWhite = true;
+   move.text = "";
+   string s;
+   // EXERCISE
+   s = move.getText();
+   // VERIFY
+   assertUnit(s == string("e5e6r"));
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x45 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(ROOK == move.capture);
+   assertUnit(Move::MOVE == move.moveType);
+   assertUnit(true == move.isWhite);
+} // teardown
 
 /*************************************
  * GET TEXT en passant
@@ -370,22 +394,27 @@ void TestMove::getText_capture()
  * Output:  e5f6E
  **************************************/
 void TestMove::getText_enpassant()
-{
-   // setup
+{  //SETUP
    Move move;
-   move.source.set(4, 4);
-   move.dest.set(5, 5);
+   move.source.colRow = 0x44;
+   move.dest.colRow = 0x55;
+   move.promote = SPACE;
+   move.capture = SPACE;
    move.moveType = Move::ENPASSANT;
-   move.capture = PAWN;
-
-   // exercise
-   string result = move.getText();
-
-   // verify
-   assertUnit(result == "e5f6E");
-
-   // teardown
-}
+   move.isWhite = true;
+   move.text = "";
+   string s;
+   // EXERCISE
+   s = move.getText();
+   // VERIFY
+   assertUnit(s == string("e5f6E"));
+   assertUnit(0x44 == move.source.colRow);
+   assertUnit(0x55 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::ENPASSANT == move.moveType);
+   assertUnit(true == move.isWhite);
+} // teardown
 
 /*************************************
  * GET TEXT king side castle
@@ -395,21 +424,27 @@ void TestMove::getText_enpassant()
  * Output:  e1g1c
  **************************************/
 void TestMove::getText_castleKing()
-{
-   // setup
+{  //SETUP
    Move move;
-   move.source.set(4, 0);
-   move.dest.set(6, 0);
+   move.source.colRow = 0x40;
+   move.dest.colRow = 0x60;
+   move.promote = SPACE;
+   move.capture = SPACE;
    move.moveType = Move::CASTLE_KING;
-
-   // exercise
-   string result = move.getText();
-
-   // verify
-   assertUnit(result == "e1g1c");
-
-   // teardown
-}
+   move.isWhite = true;
+   move.text = "";
+   string s;
+   // EXERCISE
+   s = move.getText();
+   // VERIFY
+   assertUnit(s == string("e1g1c"));
+   assertUnit(0x40 == move.source.colRow);
+   assertUnit(0x60 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::CASTLE_KING == move.moveType);
+   assertUnit(true == move.isWhite);
+} // teardown
 
 /*************************************
  * GET TEXT queen side castle
@@ -419,21 +454,27 @@ void TestMove::getText_castleKing()
  * Output:  e1c1C
  **************************************/
 void TestMove::getText_castleQueen()
-{
-   // setup
+{  //SETUP
    Move move;
-   move.source.set(4, 0);
-   move.dest.set(2, 0);
-   move.moveType = Move::CASTLE_QUEEN;
-
-   // exercise
-   string result = move.getText();
-
-   // verify
-   assertUnit(result == "e1c1C");
-
-   // teardown
-}
+   move.source.colRow = 0x40;
+   move.dest.colRow = 0x20;
+   move.promote = SPACE;
+   move.capture = SPACE;
+   move.moveType = Move:: CASTLE_QUEEN;
+   move.isWhite = true;
+   move.text     = "";
+   string s;
+   // EXERCISE
+   s = move.getText();
+   // VERIFY
+   assertUnit(s == string("e1c1C"));
+   assertUnit(0x40 == move.source.colRow);
+   assertUnit(0x20 == move.dest.colRow);
+   assertUnit(SPACE == move.promote);
+   assertUnit(SPACE == move.capture);
+   assertUnit(Move::CASTLE_QUEEN == move.moveType);
+   assertUnit(true == move.isWhite);
+} // teardown
 
 /*************************************
  * LETTER FROM PIECE TYPE space
@@ -442,17 +483,26 @@ void TestMove::getText_castleQueen()
  **************************************/
 void TestMove::letterFromPieceType_space()
 {
-   // setup
+   //SETUP
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   char result = move.letterFromPieceType(SPACE);
-
+   char letter = move.letterFromPieceType(SPACE);
    // verify
-   assertUnit(result == ' ');
-
-   // teardown
-}
+   assertUnit(letter == ' ');
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * LETTER FROM PIECE TYPE pawn
@@ -461,17 +511,26 @@ void TestMove::letterFromPieceType_space()
  **************************************/
 void TestMove::letterFromPieceType_pawn()
 {
-   // setup
+   //SETUP
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   char result = move.letterFromPieceType(PAWN);
-
+   char letter = move.letterFromPieceType(PAWN);
    // verify
-   assertUnit(result == 'p');
-
-   // teardown
-}
+   assertUnit(letter == 'p');
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * LETTER FROM PIECE TYPE bishop
@@ -480,17 +539,26 @@ void TestMove::letterFromPieceType_pawn()
  **************************************/
 void TestMove::letterFromPieceType_bishop()
 {
-   // setup
+   //SETUP
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   char result = move.letterFromPieceType(BISHOP);
-
+   char letter = move.letterFromPieceType(BISHOP);
    // verify
-   assertUnit(result == 'b');
-
-   // teardown
-}
+   assertUnit(letter == 'b');
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * LETTER FROM PIECE TYPE knight
@@ -499,17 +567,26 @@ void TestMove::letterFromPieceType_bishop()
  **************************************/
 void TestMove::letterFromPieceType_knight()
 {
-   // setup
+   //SETUP
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   char result = move.letterFromPieceType(KNIGHT);
-
+   char letter = move.letterFromPieceType(KNIGHT);
    // verify
-   assertUnit(result == 'n');
-
-   // teardown
-}
+   assertUnit(letter == 'n');
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * LETTER FROM PIECE TYPE rook
@@ -518,17 +595,26 @@ void TestMove::letterFromPieceType_knight()
  **************************************/
 void TestMove::letterFromPieceType_rook()
 {
-   // setup
+   //SETUP
    Move move;
-
+   move.source.colRow = 0x77;
+   move.dest.colRow = 0x77;
+   move.promote = KNIGHT;
+   move.capture = BISHOP;
+   move.moveType = Move::MOVE_ERROR;
+   move.isWhite = false;
+   move.text = "ERROR";
    // exercise
-   char result = move.letterFromPieceType(ROOK);
-
+   char letter = move.letterFromPieceType(ROOK);
    // verify
-   assertUnit(result == 'r');
-
-   // teardown
-}
+   assertUnit(letter == 'r');
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(0x77 == move.source.colRow);
+   assertUnit(KNIGHT == move.promote);
+   assertUnit(BISHOP == move.capture);
+   assertUnit(Move::MOVE_ERROR == move.moveType);
+   assertUnit(false == move.isWhite);
+} // teardown
 
 /*************************************
  * LETTER FROM PIECE TYPE queen
@@ -822,7 +908,6 @@ void TestMove::lessthan_lessthan()
 
    // verify
 
-   //cout << (move1 < move2) << " less ";
    assertUnit(result == false);
 
    // teardown

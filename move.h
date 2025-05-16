@@ -61,7 +61,11 @@ public:
    bool operator != (const Move & rhs)   const { return !(*this == rhs); }
    bool operator <  (const Move& rhs)   const
    {
-      return dest.getLocation() <rhs.dest.getLocation();
+      if (dest.getLocation() == rhs.dest.getLocation())
+         return source.getLocation() < rhs.source.getLocation();
+      else
+         return dest.getLocation() == rhs.dest.getLocation();
+         
    }
    const Move & operator = (const Move & rhs);
    const Move & operator = (const string& s)

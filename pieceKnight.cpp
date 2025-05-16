@@ -44,10 +44,10 @@ void Knight::getMoves(set <Move>& moves, const Board& board) const
       
       const Piece& dest = board[target]; // get a reference to the piece at the target position on the board
       
-      if (dest.getType() != SPACE && dest.isWhite() == this->isWhite())
-      { // skip to nect iteration if there is a piece there and it is the same color as this
-         continue;
-      }
+      //if (dest.getType() != SPACE && dest.isWhite() == this->isWhite())
+      //{ // skip to nect iteration if there is a piece there and it is the same color as this
+      //   continue;
+      //}
       
       // create the move and add it to the moves set
       Move move;
