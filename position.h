@@ -54,7 +54,7 @@ public:
    Position(const Position& rhs) {}
    Position() : colRow(0x99) {}
    bool isInvalid() const { return colRow & 0x88; }
-   bool isValid()   const { return !(colRow & 0x88); }
+   bool isValid()   const { return !(isInvalid()); }
    void setValid() {}
    void setInvalid() {}
    bool operator <  (const Position& rhs) const { return colRow < rhs.colRow; }
