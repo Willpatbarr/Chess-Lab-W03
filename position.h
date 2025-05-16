@@ -76,7 +76,7 @@ public:
 
    // Row/Col : The position class can work with row/column,
    //           which are 0..7 and 0...7
-   Position(int c, int r) : colRow(0x99) {}
+   Position(int c, int r) : colRow(0x99) { set(c, r); }
    virtual int getCol() const { return isValid() ? (colRow & 0xF0) >> 4 : -1; }
    virtual int getRow() const { return isValid() ? colRow & 0x0F : -1; }
    void setRow(int r);

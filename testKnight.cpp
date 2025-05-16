@@ -11,7 +11,8 @@
 #include "pieceKnight.h"     
 #include "board.h"
 #include "uiDraw.h"
-#include <cassert>      
+#include <cassert>
+using namespace std;
 
  /*************************************
   * +---a-b-c-d-e-f-g-h---+
@@ -33,6 +34,7 @@ void TestKnight::getMoves_end()
    BoardEmpty board;
    
    Knight knight(7, 7, false /*white*/); // we will reset all this.
+//   knight.nMoves = 0;
    knight.fWhite = true;
    knight.position.colRow = 0x60;
    board.board[6][0] = &knight;
@@ -56,6 +58,8 @@ void TestKnight::getMoves_end()
    g1h3.capture = SPACE;
 
    // EXERCISE
+   cout << "Knight starting at: " << knight.getPosition().getCol() << "," << knight.getPosition().getRow() << endl;
+
    knight.getMoves(moves, board);
 
    // VERIFY
