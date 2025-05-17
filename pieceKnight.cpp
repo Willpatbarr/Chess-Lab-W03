@@ -21,7 +21,7 @@ using namespace std;
  ***************************************************/
 void Knight::display(ogstream* pgout) const
 {
-
+   pgout->drawKnight(position.getLocation(), !isWhite());
 }
 
 

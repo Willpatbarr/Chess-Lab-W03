@@ -69,6 +69,7 @@ public:
 
    // setter
    virtual void setLastMove(int cMove)     { lastMove = cMove; ++nMoves;}
+   void setPosition(Position pos)          { position =  pos;}
 
    // overwritten by the various pieces
    virtual PieceType getType()                                    const = 0;

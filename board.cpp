@@ -14,6 +14,8 @@
 #include "pieceSpace.h"
 #include "pieceKnight.h"
 #include <cassert>
+
+#include <iostream>
 using namespace std;
 
 
@@ -63,7 +65,15 @@ Piece& Board::operator [] (const Position& pos)
  ***********************************************/
 void Board::display(const Position & posHover, const Position & posSelect) const
 {
-   
+   pgout->drawBoard();
+
+   for (int c = 0; c < 8; ++c)          
+      for (int r = 0; r < 8; ++r)       
+      {
+         Piece* p = board[c][r];        // board[col][row] layout
+         if (p && p->getType() != SPACE)
+            p->display(pgout);
+      }
 }
 
 
@@ -76,6 +86,11 @@ Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
    for (int r=0; r<8; r++)
       for(int c=0; c<8; c++)
          board[r][c] = nullptr;
+
+   board[1][0] = new Knight(1, 0, true);  // white knight on b1
+   board[6][0] = new Knight(6, 0, true);  // white knight on g1
+   board[1][7] = new Knight(1, 7, false);  // black knight on b8
+   board[6][7] = new Knight(6, 7, false);  // black knight on g8
 }
 
 
@@ -106,9 +121,32 @@ void Board::assertBoard()
  *         Execute a move according to the contained instructions
  *   INPUT move The instructions of the move
  *********************************************/
-void Board::move(const Move & move)
-{  
+void Board::move(const Move& move)
+{
+   Position s = move.getSrc();
+   Position d = move.getDes();
 
+   if (s.isInvalid() || d.isInvalid())
+      return;
+
+   // board[col][row]  – column first
+   Piece*& pSrc = board[s.getCol()][s.getRow()];
+   Piece*& pDest = board[d.getCol()][d.getRow()];
+
+   ++numMoves;
+
+   if (move.getMoveType() == Move::MOVE)
+   {
+      // move the pointer
+      pDest = pSrc;
+
+      // leave a Space behind
+      pSrc = new Space(s.getCol(), s.getRow());
+
+      // update piece internals
+      pDest->setPosition(d);
+      pDest->setLastMove(numMoves);
+   }
 }
 
 

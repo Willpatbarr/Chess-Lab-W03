@@ -26,5 +26,5 @@ public:
    virtual ~Space() {}
 
    PieceType getType()           const { return SPACE;  }
-   void display(ogstream* pgout) const {               }
+   void display(ogstream* pgout) const {        }
 };

@@ -58,6 +58,7 @@ public:
    virtual void move(const Move & move);
    virtual Piece& operator [] (const Position& pos);
 
+
 protected:
    void  assertBoard();
 
