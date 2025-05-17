@@ -101,6 +101,7 @@ private:
       PieceType pt = SPACE;
 
       // EXERCISE
+
       pt = space.getType();
 
       // VERIFY

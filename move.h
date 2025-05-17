@@ -13,6 +13,7 @@
 #include "position.h"  // Every move has two Positions as attributes
 #include "pieceType.h" // A piece type
 
+#include <iostream>
 
 class TestMove;
 class TestBoard;
@@ -44,6 +45,8 @@ public:
       *this = s;
    }
 
+
+
    //getters
    string getText()             const;
    const Position& getDes()     const {return dest; }
@@ -61,11 +64,19 @@ public:
    bool operator != (const Move & rhs)   const { return !(*this == rhs); }
    bool operator <  (const Move& rhs)   const
    {
-      if (dest.getLocation() == rhs.dest.getLocation())
-         return source.getLocation() < rhs.source.getLocation();
+      if (source.getLocation() == rhs.source.getLocation())
+         return dest.getLocation() < rhs.dest.getLocation();
       else
-         return dest.getLocation() == rhs.dest.getLocation();
-         
+      {
+         if (source.getLocation() < rhs.source.getLocation())
+         {
+            return true;
+         }
+         else
+
+            return false;
+
+      }
    }
    const Move & operator = (const Move & rhs);
    const Move & operator = (const string& s)

@@ -108,7 +108,7 @@ public:
    return *this;
 
    }
-   const Position& operator=(const string& rhs)
+   const Position& operator = (const string& rhs)
    {
       parseText(rhs.c_str());
 
@@ -121,7 +121,10 @@ public:
    {
       setLocation(location);
    }
-   int getLocation() const { return getRow() * 8 + getCol(); }
+   int getLocation() const 
+   { 
+      return getRow() * 8 + getCol(); 
+   }
    void setLocation(int location) 
    {
       if(0<= location && location < 64)
@@ -176,8 +179,10 @@ public:
 
    void setXY(double x, double y)
    {
-      set((int)(x / getSquareWidth()) - 1,
-         8 - (int)(y / getSquareHeight()));
+
+         set((int)(x / getSquareWidth()) - 1,
+            8 - (int)(y / getSquareHeight()));
+      
    }
 
 

@@ -47,7 +47,14 @@ void Position::setRow(int r)
 void Position::setCol(int c) 
 {
    if (c >= 0 && c < 8)
-      set((colRow & 0x0f) + ((char)c << 4));
+      if ((colRow & 0x0f) + ((char)c << 4) & 0x88)
+      {
+         colRow = 0xff;
+      }
+      else 
+      {
+         set((colRow & 0x0f) + ((char)c << 4));
+      }
    else
       set(0xff);
 }
@@ -68,13 +75,9 @@ void Position::set(int c, int r)
  * SET
  * uses the unsigned int instead of two ints
  ******************************************/
-void Position::set(uint8_t colRowNew) {
-   if (colRowNew & 0x88) {
-      colRow = 0xff;
-   }
-   else {
+void Position::set(uint8_t colRowNew) 
+{
       colRow = colRowNew;
-   }
 }
 
 /******************************************

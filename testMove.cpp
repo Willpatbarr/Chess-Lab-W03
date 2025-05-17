@@ -904,11 +904,11 @@ void TestMove::lessthan_lessthan()
    Move move2("b2b4");
    //cout<< "lessthan " <<endl;
    // exercise
+
    bool result = (move1 < move2);
 
    // verify
-
-   assertUnit(result == false);
+   assertUnit(result == true);
 
    // teardown
 }
@@ -945,6 +945,7 @@ void TestMove::lessthan_greaterthan()
    Move move2("b2b2");
 
    // exercise
+
    bool result = (move1 < move2);
 
    // verify
