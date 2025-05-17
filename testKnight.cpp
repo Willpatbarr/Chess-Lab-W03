@@ -374,7 +374,6 @@ void TestKnight::getMoves_free()
 }
 
 
-
 /*************************************
  * GET TYPE : knight
  * Input:
