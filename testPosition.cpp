@@ -1029,6 +1029,10 @@ void PositionTest::getWidth_10()
    pos.squareHeight = squareHeight;
 }
 
+/*************************************
+ * GET HEIGHT  10
+ * Size of a single square where the board size is 10
+ *************************************/
 void PositionTest::getHeight_10()
 {
    // SETUP

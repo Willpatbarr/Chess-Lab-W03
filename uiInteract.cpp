@@ -106,7 +106,8 @@ void drawCallback()
    Interface ui;
    // Prepare the background buffer for drawing
    glClear(GL_COLOR_BUFFER_BIT); //clear the screen
-   glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */, (GLfloat)1.0 /* blue % */);
+   glColor3f((GLfloat)1.0 /* red % */, (GLfloat)1.0 /* green % */,
+       (GLfloat)1.0 /* blue % */);
    
    //calls the client's display function
    assert(ui.callBack != NULL);
@@ -216,7 +217,8 @@ bool Interface::isTimeToDraw()
  *************************************************************************/
 void Interface::setNextDrawTime()
 {
-   nextTick = clock() + static_cast<unsigned long> (timePeriod * CLOCKS_PER_SEC);
+   nextTick = clock() + static_cast<unsigned long> 
+       (timePeriod * CLOCKS_PER_SEC);
 }
 
 /************************************************************************

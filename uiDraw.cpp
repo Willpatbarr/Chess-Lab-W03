@@ -375,19 +375,28 @@ void ogstream::drawBoard()
       void* pFont = GLUT_TEXT;
 
       // Bottom row
-      GLfloat xPos = (GLfloat)SIZE_SQUARE +          // indent by the board margin
-                     (GLfloat)(col * SIZE_SQUARE) +  // tab over by the number of columns
-                     (GLfloat)(SIZE_SQUARE / 2) +    // center on the column
-                     -WIDTH_LETTER;                  // back up by the width of a letter
-      GLfloat yPos = TEXT_MARGIN;                    // just a bit from the bottom
+      // indent by the board margin
+      GLfloat xPos = (GLfloat)SIZE_SQUARE +          
+                     // tab over by the number of columns
+                     (GLfloat)(col * SIZE_SQUARE) +  
+                     // center on the column
+                     (GLfloat)(SIZE_SQUARE / 2) +    
+                     // back up by the width of a letter
+                     -WIDTH_LETTER;                  
+      // just a bit from the bottom
+      GLfloat yPos = TEXT_MARGIN;                    
       glRasterPos2f(xPos, yPos);
       glutBitmapCharacter(pFont, (char)('a' + col));
 
       // top row
-      yPos = (GLfloat)(SIZE_SQUARE * 2) +            // add the margins and...
-             (GLfloat)(8 * SIZE_SQUARE) +            // add the size of the squares
-             -HEIGHT_LETTER +                        // subtract the size of a letter
-             -TEXT_MARGIN;                           // just a bit from the bottom
+      // add the margins and...
+      yPos = (GLfloat)(SIZE_SQUARE * 2) +    
+             // add the size of the squares
+             (GLfloat)(8 * SIZE_SQUARE) +            
+             // subtract the size of a letter
+             -HEIGHT_LETTER +                        
+             // just a bit from the bottom
+             -TEXT_MARGIN;                           
       glRasterPos2f(xPos, yPos);
       glutBitmapCharacter(pFont, (char)('a' + col));
    }
@@ -398,19 +407,28 @@ void ogstream::drawBoard()
       void* pFont = GLUT_TEXT;
       
       // left column
-      GLfloat xPos = TEXT_MARGIN;                    // just a bit from the side
-      GLfloat yPos = (GLfloat)SIZE_SQUARE +          // indent by the board margin
-                     (GLfloat)(row * SIZE_SQUARE) +  // tab over by the number of rows
-                     (GLfloat)(SIZE_SQUARE / 2) +    // center on the row
-                     -HEIGHT_LETTER/2;               // back up by the height of a letter
+      // just a bit from the side
+      GLfloat xPos = TEXT_MARGIN;                   
+      // indent by the board margin
+      GLfloat yPos = (GLfloat)SIZE_SQUARE +          
+                     // tab over by the number of rows
+                     (GLfloat)(row * SIZE_SQUARE) +  
+                     // center on the row
+                     (GLfloat)(SIZE_SQUARE / 2) +    
+                     // back up by the height of a letter
+                     -HEIGHT_LETTER/2;               
       glRasterPos2f(xPos, yPos);
       glutBitmapCharacter(pFont, (char)('1' + row));
       
       // right column
-      xPos = (GLfloat)(SIZE_SQUARE * 2) +            // add the margins and...
-             (GLfloat)(8 * SIZE_SQUARE) +            // add the size of the squares
-             -HEIGHT_LETTER +                        // subtract the size of a letter
-             -TEXT_MARGIN;                           // just a bit from the bottom
+      // add the margins and...
+      xPos = (GLfloat)(SIZE_SQUARE * 2) +            
+             // add the size of the squares
+             (GLfloat)(8 * SIZE_SQUARE) +            
+             // subtract the size of a letter
+             -HEIGHT_LETTER +                        
+             // just a bit from the bottom
+             -TEXT_MARGIN;                           
       glRasterPos2f(xPos, yPos);
       glutBitmapCharacter(pFont, (char)('1' + row));
    }

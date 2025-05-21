@@ -27,7 +27,10 @@ Move::Move()
    moveType = MOVE;
    isWhite = true;
 }
-
+/***************************************************
+ * MOVE : READ
+ * Reads the move type from a string.  
+ ***************************************************/
 void Move::read(const string& rhs)
 {
    promote = SPACE;
@@ -65,7 +68,10 @@ void Move::read(const string& rhs)
    }
 }
 
-
+/***************************************************
+ * MOVE : GET TEXT
+ * Gets the text representation of the move.
+ ***************************************************/
 string Move::getText() const
 {
    string result;
@@ -119,17 +125,18 @@ string Move::getText() const
    return result;
 }
 
-
-
-
-
-
-
+/***************************************************
+ * MOVE : OPERATOR ==
+ ***************************************************/
 bool Move::operator==(const Move& rhs) const
 {
    return source == rhs.source && dest == rhs.dest;
 }
 
+/***************************************************
+ * MOVE : LETTER FROM PIECE TYPE
+ * Gets the letter representation of a piece type.
+ ***************************************************/
 char Move::letterFromPieceType(PieceType pt) const
 {
    switch (pt)
@@ -145,6 +152,10 @@ char Move::letterFromPieceType(PieceType pt) const
    }
 }
 
+/***************************************************
+ * MOVE : PIECE FROM LETTER TYPE
+ * Gets the PIECE type of a LETTER representation.
+ ***************************************************/
 PieceType Move::pieceTypeFromLetter(char letter) const
 {
    switch (letter)

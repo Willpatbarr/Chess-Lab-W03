@@ -73,7 +73,8 @@ Piece& Board::operator [] (const Position& pos)
  * BOARD : DISPLAY
  *         Display the board
  ***********************************************/
-void Board::display(const Position & posHover, const Position & posSelect) const
+void Board::display(const Position & posHover, 
+    const Position & posSelect) const
 {
    pgout->drawBoard();
 
