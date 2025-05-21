@@ -37,14 +37,24 @@ using namespace std;
  ***********************************************/
 void Board::reset(bool fFree)
 {
-   // free everything
+   // if (iFree)
+   // free();
+      
+   // free everything cleaning things
    for (int r = 0; r < 8; r++)
       for (int c = 0; c < 8; c++)
          board[c][r] = nullptr;
+
+   //creat four knights
+   //board[][] = new knight(1,0, true)
+
+   //everything else is spacees
+
+   //reset moves
+   //numMoves =0
+   // assertBoard();
 }
 
-// we really REALLY need to delete this.
-Space space(0,0);
 
 /***********************************************
 * BOARD : GET
@@ -100,6 +110,8 @@ Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
  ************************************************/
 void Board::free()
 {
+   // for everything in 
+   //delete board[][]
 
 }
 
@@ -135,6 +147,8 @@ void Board::move(const Move& move)
 
    ++numMoves;
 
+
+   //switch case
    if (move.getMoveType() == Move::MOVE)
    {
       // move the pointer
@@ -148,6 +162,8 @@ void Board::move(const Move& move)
       pDest->setLastMove(numMoves);
    }
 }
+
+
 
 
 
