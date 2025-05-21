@@ -64,10 +64,15 @@ protected:
 
    Piece * board[8][8];    // the board of chess pieces
    int numMoves;
-
+   //Piece factory(PieceType ptNew, int c, int r);
    ogstream* pgout;
 };
 
+/**********************************************  
+* FACTORY  
+* A helper function to create pieces  
+**********************************************/  
+Piece* factory(PieceType ptNew, int c, int r);
 
 /***************************************************
  * BOARD DUMMY BOARD

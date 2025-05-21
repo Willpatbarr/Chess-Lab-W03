@@ -24,7 +24,34 @@ void Knight::display(ogstream* pgout) const
    pgout->drawKnight(position.getLocation(), !isWhite());
 }
 
+/***************************************************
+* PIECE : GEN MOVES NO SLIDE
+*         From a list of deltas, find all the
+*         possible moves
+***************************************************/
+set <Move> Knight::getMovesNoslide(const Board& board,
+                                   const Delta deltas[],
+                                   int numDelta) const
+{
+   set <Move> moves;
+   for (int i = 0; i < numDelta; i++)
+   {
+      Position posMove(position, deltas[i]);
+      if (posMove.isValid() &&
+         (board[posMove].isWhite() != fWhite || board[posMove] == SPACE))
+      {
+         Move move;
+         move.setSrc(getPosition());
+         move.setDes(posMove);
+         move.setWhiteMove(isWhite());
+         if (board[posMove] != SPACE)
+            move.setCapture(board[posMove].getType());
+         moves.insert(move);
+      }
+   }
 
+   return moves;
+}
 /**********************************************
  * KNIGHT : GET POSITIONS
  *********************************************/
@@ -32,40 +59,13 @@ void Knight::getMoves(set <Move>& moves, const Board& board) const
 {
    const Delta deltas[] =
    {
-      {  1, -2 }, {  2, -1 }, {  2,  1 }, {  1,  2 },
-      { -1,  2 }, { -2,  1 }, { -2, -1 }, { -1, -2 }
+                 {  1, -2 }, {  2, -1 }, 
+      {  2,  1 },                       {  1,  2 },
+      { -1,  2 },                       { -2,  1 }, 
+                 { -2, -1 }, { -1, -2 }
    };
    
-
-   for (int i =0; i <8; i++)
-   {
-      Position tempPos;
-      tempPos = position;
-      tempPos += deltas[i];
-
-      if (tempPos.isInvalid())
-         continue;
-
-      const Piece* pDes = &board[tempPos];
-
-      // Skip if occupied by a piece of the same color
-      if (pDes->getType() != SPACE && pDes->isWhite() == this->isWhite())
-         continue;
-
-
-      Move newMove;
-      newMove.setSrc(position);
-      newMove.setDes(tempPos);
-
-      // Mark as capture if it’s an enemy piece
-      if (pDes->getType() != SPACE && pDes->isWhite() != this->isWhite())
-         newMove.setCapture(pDes->getType());
-      else
-         newMove.setCapture(SPACE);
-
-      moves.insert(newMove);
-   }
-
-   
+   moves = getMovesNoslide(board,
+                           deltas, sizeof(deltas) / sizeof(deltas[0]));
 
 }

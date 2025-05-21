@@ -37,8 +37,8 @@ using namespace std;
  ***********************************************/
 void Board::reset(bool fFree)
 {
-   // if (iFree)
-   // free();
+   if (fFree)
+      free();
       
    // free everything cleaning things
    for (int r = 0; r < 8; r++)
@@ -46,13 +46,20 @@ void Board::reset(bool fFree)
          board[c][r] = nullptr;
 
    //creat four knights
-   //board[][] = new knight(1,0, true)
+   board[1][0] = new Knight(1, 0, true);
+   board[6][0] = new Knight(6, 0, true);
+   board[1][7] = new Knight(1, 7, false);
+   board[6][7] = new Knight(6, 7, false);
 
    //everything else is spacees
-
+   for (int r =0; r < 8; r++)
+      for (int c = 0; c < 8; c++)
+         if (nullptr == board[c][r])
+            board[c][r] = new Space(c,r);
+   
    //reset moves
-   //numMoves =0
-   // assertBoard();
+   numMoves = 0;
+   assertBoard();
 }
 
 
@@ -62,11 +69,12 @@ void Board::reset(bool fFree)
 ***********************************************/
 const Piece& Board::operator [] (const Position& pos) const
 {
+   assert(nullptr != board[pos.getCol()][pos.getRow()]);
    return *(board[pos.getCol()][pos.getRow()]);
 }
 Piece& Board::operator [] (const Position& pos)
 {
-
+   assert(nullptr != board[pos.getCol()][pos.getRow()]);
    return *(board[pos.getCol()][pos.getRow()]);
 }
  /***********************************************
@@ -78,12 +86,11 @@ void Board::display(const Position & posHover,
 {
    pgout->drawBoard();
 
-   for (int c = 0; c < 8; ++c)          
-      for (int r = 0; r < 8; ++r)       
+   for (int r = 0; r < 8; ++r)          
+      for (int c = 0; c < 8; ++c)       
       {
-         Piece* p = board[c][r];        // board[col][row] layout
-         if (p && p->getType() != SPACE)
-            p->display(pgout);
+         assert(nullptr != board[c][r]);
+         board[c][r]->display(pgout);
       }
 }
 
@@ -94,14 +101,17 @@ void Board::display(const Position & posHover,
  ************************************************/
 Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
 {
-   for (int r=0; r<8; r++)
-      for(int c=0; c<8; c++)
-         board[r][c] = nullptr;
+   if (!noreset)
+      reset(false);
+   else
+      for (int r = 0; r < 8; r++)
+         for(int c = 0; c < 8; c++)
+            board[c][r] = nullptr;
 
-   board[1][0] = new Knight(1, 0, true);  // white knight on b1
-   board[6][0] = new Knight(6, 0, true);  // white knight on g1
-   board[1][7] = new Knight(1, 7, false);  // black knight on b8
-   board[6][7] = new Knight(6, 7, false);  // black knight on g8
+   //board[1][0] = new Knight(1, 0, true);  // white knight on b1
+   //board[6][0] = new Knight(6, 0, true);  // white knight on g1
+   //board[1][7] = new Knight(1, 7, false);  // black knight on b8
+   //board[6][7] = new Knight(6, 7, false);  // black knight on g8
 }
 
 
@@ -111,9 +121,10 @@ Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
  ************************************************/
 void Board::free()
 {
-   // for everything in 
-   //delete board[][]
-
+   for (int r = 0; r < 8; r++)
+      for (int c = 0; c < 8; c++)
+         if (board[c][r] != nullptr)
+            delete board[c][r];
 }
 
 
@@ -123,7 +134,23 @@ void Board::free()
  *********************************************/
 void Board::assertBoard()
 {
-
+#ifndef NDEBUG
+   for (int r = 0; r < 8; r++)
+      for (int c = 0; c < 8; c++)
+         if (board[c][r] != nullptr)
+         {
+            Position pos = board[c][r]->getPosition();
+            assert(pos.getRow() == r);
+            assert(pos.getCol() == c);
+            assert(board[c][r]->getType() == SPACE ||
+               board[c][r]->getType() == KING ||
+               board[c][r]->getType() == QUEEN ||
+               board[c][r]->getType() == ROOK ||
+               board[c][r]->getType() == BISHOP ||
+               board[c][r]->getType() == KNIGHT ||
+               board[c][r]->getType() == PAWN);
+         }
+#endif // NDEBUG
 }
 
 
@@ -136,35 +163,84 @@ void Board::assertBoard()
  *********************************************/
 void Board::move(const Move& move)
 {
+   assertBoard();
    Position s = move.getSrc();
    Position d = move.getDes();
 
-   if (s.isInvalid() || d.isInvalid())
-      return;
+   Piece * pSrc = board[s.getCol()][s.getRow()];
+   Piece * pDes = board[d.getCol()][d.getRow()];
+   assert(pSrc->getType() != SPACE);
+   assert(s.isValid());
+   assert(d.isValid());
 
-   // board[col][row]  – column first
-   Piece*& pSrc = board[s.getCol()][s.getRow()];
-   Piece*& pDest = board[d.getCol()][d.getRow()];
-
-   ++numMoves;
-
-
-   //switch case
-   if (move.getMoveType() == Move::MOVE)
+   switch (move.getMoveType())
    {
-      // move the pointer
-      pDest = pSrc;
+      case Move::MOVE:
+      {
+         PieceType ptNew = move.getPromotion() == SPACE ? pSrc->getType() :
+                                                          move.getPromotion();
+         Piece * pSpace = new Space(s.getCol(), s.getRow());
+         Piece * pNew   = factory(ptNew, d.getCol(), d.getRow());
+         *pNew = *pSrc;
+         pNew->setLastMove(getCurrentMove());
 
-      // leave a Space behind
-      pSrc = new Space(s.getCol(), s.getRow());
+         board[s.getCol()][s.getRow()] = pSpace;
+         board[d.getCol()][d.getRow()] = pNew;
 
-      // update piece internals
-      pDest->setPosition(d);
-      pDest->setLastMove(numMoves);
+         numMoves++;
+         break;
+      }
+
+      case Move::ENPASSANT:
+         assert(false);
+         break;
+
+      case Move::CASTLE_KING:
+         assert(false);
+         break;
+
+      case Move::CASTLE_QUEEN:
+         assert(false);
+         break;
+
+      default:
+         break;
    }
 }
 
+/**********************************************
+ * FACTORY
+ * A helper function to create pieces
+ *********************************************/
+Piece* factory(PieceType ptNew, int c, int r)
+{
+   switch (ptNew)
+   {
+   case SPACE:
+      return new Space(c, r);
+   case KING:
+      // return new King(c, r); 
+      break;
+   case QUEEN:
+      // return new Queen(c, r); 
+      break;
+   case ROOK:
+      // return new Rook(c, r); 
+      break;
+   case BISHOP:
+      // return new Bishop(c, r); 
+      break;
+   case KNIGHT:
+      return new Knight(c, r, true); 
+   case PAWN:
+      // return new Pawn(c, r); 
+      break;
+   default:
+      break;
+   }
 
+   return nullptr; 
+}
 
 
 

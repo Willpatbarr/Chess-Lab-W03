@@ -58,14 +58,14 @@ public:
    virtual const Piece& operator = (const Piece& rhs);
 
    // getters
-   virtual bool operator == (PieceType pt) const { return getType() == pt; }
-   virtual bool operator != (PieceType pt) const { return getType() != pt;      }
-   virtual bool isWhite()                  const { return fWhite;         }
-   virtual bool isMoved()                  const { return lastMove != 0;   }
-   virtual int  getNMoves()                const { return nMoves;         }
-   virtual void decrementNMoves()                {                      }
-   virtual const Position & getPosition()  const { return position;   }
-   virtual bool justMoved(int cMove) const { return (cMove - lastMove) == 1;}
+   virtual bool operator == (PieceType pt) const { return getType() == pt;          }
+   virtual bool operator != (PieceType pt) const { return getType() != pt;          }
+   virtual bool isWhite()                  const { return fWhite;                   }
+   virtual bool isMoved()                  const { return lastMove != 0;            }
+   virtual int  getNMoves()                const { return nMoves;                   }
+   virtual void decrementNMoves()                { nMoves -= (nMoves > 1) ? 2 : 0;  }
+   virtual const Position & getPosition()  const { return position;                 }
+   virtual bool justMoved(int cMove) const       { return (cMove - 1) == lastMove;  }
 
    // setter
    virtual void setLastMove(int cMove)     { lastMove = cMove; ++nMoves;}
@@ -74,7 +74,7 @@ public:
    // overwritten by the various pieces
    virtual PieceType getType()                                    const = 0;
    virtual void display(ogstream * pgout)                         const = 0;
-   int getMoves(set <Move> & moves, const Board & board) const;
+   void getMoves(set <Move> & moves, const Board & board) const;
 
 protected:
 
@@ -93,11 +93,11 @@ protected:
 class PieceDerived : public Piece
 {
 public:
-   PieceDerived(const Position& pos, bool isWhite) : Piece(9, 9) { }
-   PieceDerived(int c, int r, bool isWhite) : Piece(9, 9)        { }
-   ~PieceDerived()                                                       { }
-   PieceType getType()            const     { return SPACE;                }
-   void display(ogstream* pgout)  const     { assert(false);               }
+   PieceDerived(const Position& pos, bool isWhite) : Piece(pos, isWhite)  { }
+   PieceDerived(int c, int r, bool isWhite) : Piece(c, r, isWhite)        { }
+   ~PieceDerived()                                                        { }
+   PieceType getType()            const     { return SPACE;                 }
+   void display(ogstream* pgout)  const     { assert(false);                }
 };
 
 

@@ -21,10 +21,10 @@ class Space : public Piece
 {
    friend TestSpace;
 public:
-   Space(int c, int r) : Piece(c, r) {}  
-   Space(const Position& pos) : Piece(pos, true) {}
-   virtual ~Space() {}
+   Space(int c, int r) : Piece(c, r)             {       }  
+   Space(const Position& pos) : Piece(pos, true) {       }
+   virtual ~Space()                              {       }
 
-   PieceType getType()           const { return SPACE;  }
-   void display(ogstream* pgout) const {        }
+   PieceType getType()           const { return SPACE;   }
+   void display(ogstream* pgout) const {                 }
 };

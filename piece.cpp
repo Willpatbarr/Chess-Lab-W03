@@ -36,8 +36,7 @@ const Piece & Piece::operator = (const Piece & rhs)
  * PIECE : GET MOVES
  * Iterate through the moves decorator to allow a piece to move
  ***********************************************/
-int Piece::getMoves(set <Move> & movesSet, const Board & board) const
+void Piece::getMoves(set <Move> & movesSet, const Board & board) const
 {
-   return nMoves;
 }
 

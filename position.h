@@ -175,8 +175,6 @@ public:
    }
 
 
-
-
    void setXY(double x, double y)
    {
 
@@ -184,8 +182,6 @@ public:
             8 - (int)(y / getSquareHeight()));
       
    }
-
-
 
 
    double getSquareWidth()  const { return squareWidth; }
