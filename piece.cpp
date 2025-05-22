@@ -40,3 +40,31 @@ void Piece::getMoves(set <Move> & movesSet, const Board & board) const
 {
 }
 
+/***************************************************
+* PIECE : GEN MOVES NO SLIDE
+*         From a list of deltas, find all the
+*         possible moves
+***************************************************/
+set <Move> Piece::getMovesNoslide(const Board& board,
+   const Delta deltas[],
+   int numDelta) const
+{
+   set <Move> moves;
+   for (int i = 0; i < numDelta; i++)
+   {
+      Position posMove(position, deltas[i]);
+      if (posMove.isValid() &&
+         (board[posMove].isWhite() != fWhite || board[posMove] == SPACE))
+      {
+         Move move;
+         move.setSrc(getPosition());
+         move.setDes(posMove);
+         move.setWhiteMove(isWhite());
+         if (board[posMove] != SPACE)
+            move.setCapture(board[posMove].getType());
+         moves.insert(move);
+      }
+   }
+
+   return moves;
+}

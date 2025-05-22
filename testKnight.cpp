@@ -251,7 +251,7 @@ void TestKnight::getMoves_capture()
 
 
    // TEARDOWN
-   board.board[4][3] = nullptr;  // knight
+   board.board[3][4] = nullptr;  // knight
    board.board[1][3] = nullptr;
    board.board[1][5] = nullptr;
    board.board[2][2] = nullptr;
@@ -287,29 +287,7 @@ void TestKnight::getMoves_free()
    knight.position.colRow = 0x34;
    board.board[3][4] = &knight;
 
-   White w1(PAWN);
-   board.board[1][3] = &w1;  //uppercase is black, lowercase is white
 
-   White w2(PAWN);
-   board.board[1][5] = &w2;
-
-   White w3(PAWN);
-   board.board[2][2] = &w3;
-
-   White w4(PAWN);
-   board.board[2][6] = &w4;
-
-   White w5(PAWN);
-   board.board[4][2] = &w5;
-
-   White w6(PAWN);
-   board.board[4][6] = &w6;
-
-   White w7(PAWN);
-   board.board[5][3] = &w7;
-
-   White w8(PAWN);
-   board.board[5][5] = &w8;
 
    set <Move> moves;
 

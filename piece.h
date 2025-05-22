@@ -66,6 +66,9 @@ public:
    virtual void decrementNMoves()                { nMoves -= (nMoves > 1) ? 2 : 0;  }
    virtual const Position & getPosition()  const { return position;                 }
    virtual bool justMoved(int cMove) const       { return (cMove - 1) == lastMove;  }
+   set <Move> getMovesNoslide(const Board& board,
+                              const Delta deltas[],
+                              int numDelta) const;
 
    // setter
    virtual void setLastMove(int cMove)     { lastMove = cMove; ++nMoves;}

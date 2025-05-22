@@ -107,11 +107,6 @@ Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
       for (int r = 0; r < 8; r++)
          for(int c = 0; c < 8; c++)
             board[c][r] = nullptr;
-
-   //board[1][0] = new Knight(1, 0, true);  // white knight on b1
-   //board[6][0] = new Knight(6, 0, true);  // white knight on g1
-   //board[1][7] = new Knight(1, 7, false);  // black knight on b8
-   //board[6][7] = new Knight(6, 7, false);  // black knight on g8
 }
 
 

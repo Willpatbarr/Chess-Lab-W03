@@ -26,7 +26,5 @@ public:
    void display(ogstream* pgout)  const;
 
 private:
-   set <Move> getMovesNoslide(const Board& board,
-                              const Delta deltas[],
-                              int numDelta) const;
+
 };
