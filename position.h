@@ -47,6 +47,7 @@ class Position
    friend class TestKnight;
    friend class TestKing;
    friend class TestMove;
+   friend class TestPawn;
 
 public:
 
