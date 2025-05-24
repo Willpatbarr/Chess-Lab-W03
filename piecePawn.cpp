@@ -23,14 +23,17 @@ void Pawn::getMoves(set <Move>& moves, const Board& board) const
    // if there is no piece blocking the pawn in one square
    Position oneAhead = position;
    oneAhead.adjustRow(direction);
-   if (oneAhead.isValid() && board[oneAhead].getType() == SPACE)
+   if (oneAhead.isValid() &&
+       board[oneAhead].getType() == SPACE)
    {
       deltas[numDeltas++] = { direction, 0 };
       
       // if no piece is blocking 2 spaces away and the pawn aint moved yet
       Position twoAhead = oneAhead;
       twoAhead.adjustRow(direction);
-      if (getNMoves() == 0 && twoAhead.isValid() && board[twoAhead].getType() == SPACE)
+      if (getNMoves() == 0 &&
+          twoAhead.isValid() &&
+          board[twoAhead].getType() == SPACE)
       {
          deltas[numDeltas++] = {2 * direction, 0 };
       }
@@ -41,7 +44,8 @@ void Pawn::getMoves(set <Move>& moves, const Board& board) const
    Position leftCapture = position;
    leftCapture.adjustRow(direction);
    leftCapture.adjustCol(-1);
-   if (leftCapture.isValid() && board[leftCapture].getType() != SPACE) // does not check for color because getMovesNoSlide does
+   if (leftCapture.isValid() &&
+       board[leftCapture].getType() != SPACE) // does not check for color because getMovesNoSlide does
    {
       deltas[numDeltas++] = { direction, -1 };
    }
@@ -49,16 +53,43 @@ void Pawn::getMoves(set <Move>& moves, const Board& board) const
    Position rightCapture = position;
    rightCapture.adjustRow(direction);
    rightCapture.adjustCol(1);
-   if (rightCapture.isValid() && board[rightCapture].getType() != SPACE)
+   if (rightCapture.isValid() &&
+       board[rightCapture].getType() != SPACE)
    {
       deltas[numDeltas++] = { direction, 1 };
    }
-   
-   // if the piece can en passant
-   
+      
    // add all of them to the deltas array
    set<Move> generated = getMovesNoslide(board, deltas, numDeltas);
       moves.insert(generated.begin(), generated.end());
+   
+   // if the piece can en passant
+   for (int dCol = -1; dCol <= 1; dCol += 2) // use a for loop to check for both side positions
+   {
+      Position side = position;
+      side.adjustCol(dCol);
+      if (side.isValid() &&
+          board[side].getType() == PAWN &&
+          board[side].isWhite() != fWhite)
+      {
+         Position target = position;
+         target.adjustRow(fWhite ? 1 : -1);
+         target.adjustCol(dCol);
+         
+         if (target.isValid() && board[target].getType() == SPACE)
+         {
+            Move m;
+            m.setSrc(position);
+            m.setDes(target);
+            m.setWhiteMove(fWhite);
+            m.setEnPassant(); // make it an enpassant
+            m.setCapture(PAWN);
+            std::cout << "Adding en passant move: " << m.getText() << std::endl;
+
+            moves.insert(m);
+         }
+      }
+   }
 }
 
 /************************************************
