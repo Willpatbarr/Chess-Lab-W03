@@ -10,7 +10,6 @@
 
 #include "piece.h"
 #include "pieceType.h"
-#include <vector>
 
  /***************************************************
   * KNIGHT

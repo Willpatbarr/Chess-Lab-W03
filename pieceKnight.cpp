@@ -9,7 +9,7 @@
 
 #include "pieceKnight.h"
 #include "board.h"
-#include "uiDraw.h"    // for draw*()
+#include "uiDraw.h"   
 
 #include <iostream>
 

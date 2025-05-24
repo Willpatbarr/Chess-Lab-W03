@@ -36,6 +36,7 @@ public:
   friend TestRook;
   friend TestPawn;
   friend TestKing;
+  friend TestQueen;
 
   // constructors  
   Move();  

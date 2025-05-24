@@ -8,6 +8,8 @@
 ************************************************************************/
 #include "pieceRook.h"
 #include "board.h"
+#include "uiDraw.h"   
+
 
 /************************************************
  * ROOK : getMoves()
@@ -27,11 +29,12 @@ void Rook::getMoves(set <Move>& moves, const Board& board) const
 }
 
 /************************************************
- * PAWN : display
- * Show the troops
+ * Rook : display
+ * Show the tower 
  ***********************************************/
 void Rook::display(ogstream* pgout)  const
 {
+   pgout->drawRook(position.getLocation(), !isWhite());
 
 }
 
