@@ -863,7 +863,87 @@ void TestBoard::move_kingLongCastle()
  ********************************************************/
 void TestBoard::construct_default()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
+
+   Board board;
+   // Row 0 (White major pieces)
+   assertUnit(ROOK == (board.board[0][0])->getType());
+   assertUnit(KNIGHT == (board.board[1][0])->getType());
+   assertUnit(BISHOP == (board.board[2][0])->getType());
+   assertUnit(QUEEN == (board.board[3][0])->getType());
+   assertUnit(KING == (board.board[4][0])->getType());
+   assertUnit(BISHOP == (board.board[5][0])->getType());
+   assertUnit(KNIGHT == (board.board[6][0])->getType());
+   assertUnit(ROOK == (board.board[7][0])->getType());
+
+   // Row 1 (White pawns)
+   assertUnit(PAWN == (board.board[0][1])->getType());
+   assertUnit(PAWN == (board.board[1][1])->getType());
+   assertUnit(PAWN == (board.board[2][1])->getType());
+   assertUnit(PAWN == (board.board[3][1])->getType());
+   assertUnit(PAWN == (board.board[4][1])->getType());
+   assertUnit(PAWN == (board.board[5][1])->getType());
+   assertUnit(PAWN == (board.board[6][1])->getType());
+   assertUnit(PAWN == (board.board[7][1])->getType());
+
+   // Row 2 (empty)
+   assertUnit(SPACE == (board.board[0][2])->getType());
+   assertUnit(SPACE == (board.board[1][2])->getType());
+   assertUnit(SPACE == (board.board[2][2])->getType());
+   assertUnit(SPACE == (board.board[3][2])->getType());
+   assertUnit(SPACE == (board.board[4][2])->getType());
+   assertUnit(SPACE == (board.board[5][2])->getType());
+   assertUnit(SPACE == (board.board[6][2])->getType());
+   assertUnit(SPACE == (board.board[7][2])->getType());
+
+   // Row 3 (empty)
+   assertUnit(SPACE == (board.board[0][3])->getType());
+   assertUnit(SPACE == (board.board[1][3])->getType());
+   assertUnit(SPACE == (board.board[2][3])->getType());
+   assertUnit(SPACE == (board.board[3][3])->getType());
+   assertUnit(SPACE == (board.board[4][3])->getType());
+   assertUnit(SPACE == (board.board[5][3])->getType());
+   assertUnit(SPACE == (board.board[6][3])->getType());
+   assertUnit(SPACE == (board.board[7][3])->getType());
+
+   // Row 4 (empty)
+   assertUnit(SPACE == (board.board[0][4])->getType());
+   assertUnit(SPACE == (board.board[1][4])->getType());
+   assertUnit(SPACE == (board.board[2][4])->getType());
+   assertUnit(SPACE == (board.board[3][4])->getType());
+   assertUnit(SPACE == (board.board[4][4])->getType());
+   assertUnit(SPACE == (board.board[5][4])->getType());
+   assertUnit(SPACE == (board.board[6][4])->getType());
+   assertUnit(SPACE == (board.board[7][4])->getType());
+
+   // Row 5 (empty)
+   assertUnit(SPACE == (board.board[0][5])->getType());
+   assertUnit(SPACE == (board.board[1][5])->getType());
+   assertUnit(SPACE == (board.board[2][5])->getType());
+   assertUnit(SPACE == (board.board[3][5])->getType());
+   assertUnit(SPACE == (board.board[4][5])->getType());
+   assertUnit(SPACE == (board.board[5][5])->getType());
+   assertUnit(SPACE == (board.board[6][5])->getType());
+   assertUnit(SPACE == (board.board[7][5])->getType());
+
+   // Row 6 (Black pawns)
+   assertUnit(PAWN == (board.board[0][6])->getType());
+   assertUnit(PAWN == (board.board[1][6])->getType());
+   assertUnit(PAWN == (board.board[2][6])->getType());
+   assertUnit(PAWN == (board.board[3][6])->getType());
+   assertUnit(PAWN == (board.board[4][6])->getType());
+   assertUnit(PAWN == (board.board[5][6])->getType());
+   assertUnit(PAWN == (board.board[6][6])->getType());
+   assertUnit(PAWN == (board.board[7][6])->getType());
+
+   // Row 7 (Black major pieces)
+   assertUnit(ROOK == (board.board[0][7])->getType());
+   assertUnit(KNIGHT == (board.board[1][7])->getType());
+   assertUnit(BISHOP == (board.board[2][7])->getType());
+   assertUnit(QUEEN == (board.board[3][7])->getType());
+   assertUnit(KING == (board.board[4][7])->getType());
+   assertUnit(BISHOP == (board.board[5][7])->getType());
+   assertUnit(KNIGHT == (board.board[6][7])->getType());
+   assertUnit(ROOK == (board.board[7][7])->getType());
 }
 
 /***********************************************
