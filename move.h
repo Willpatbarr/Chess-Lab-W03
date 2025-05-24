@@ -20,6 +20,8 @@ class TestBoard;
 class TestKnight;  
 class TestKing;
 class TestPawn;
+class TestQueen;
+class TestRook;
 
 /***************************************************  
 * MOVE  

@@ -12,7 +12,9 @@
 #include "pieceRook.h"
 #include "board.h"
 #include "uiDraw.h"
-#include <cassert>      
+#include <cassert>
+#include <iostream>
+
 
  /*************************************
   * GET MOVES TEST Simple
@@ -39,6 +41,7 @@ void TestPawn::getMoves_simpleWhite()
    Pawn pawn(7, 7, false /*white*/); // we will reset all this.
    pawn.fWhite = true;
    pawn.position.colRow = 0x13;
+   pawn.nMoves = 2;
    board.board[1][3] = &pawn;
    
    set <Move> moves;
@@ -50,7 +53,7 @@ void TestPawn::getMoves_simpleWhite()
 
    // EXERCISE
    pawn.getMoves(moves, board);
-
+   
    // VERIFY
    assertUnit(moves.size() == 1);  // many possible moves
    assertUnit(moves.find(b5b6p) != moves.end());
@@ -84,6 +87,8 @@ void TestPawn::getMoves_simpleBlack()
    Pawn pawn(7, 7, false /*white*/); // we will reset all this.
    pawn.fWhite = false;
    pawn.position.colRow = 0x13;
+   pawn.nMoves = 2;
+
    board.board[1][3] = &pawn;
    
    set <Move> moves;
@@ -371,6 +376,8 @@ void TestPawn::getMoves_enpassantWhite()
 {
    // SETUP
    BoardEmpty board;
+   board.moveNumber = 2;
+
    
       //subject piece
    Pawn pawn(7, 7, false /*white*/); // we will reset all this.
@@ -394,17 +401,22 @@ void TestPawn::getMoves_enpassantWhite()
    bPawn3.position.colRow = 0x24;
    board.board[2][4] = &bPawn3;
    
+   bPawn1.setLastMove(board.getCurrentMove());
+   bPawn3.setLastMove(board.getCurrentMove());
+   
    set <Move> moves;
    
    Move b5a6p;
    b5a6p.source.colRow = 0x14;
    b5a6p.dest.colRow = 0x05;
    b5a6p.capture = PAWN;
+   b5a6p.moveType = Move::ENPASSANT;
    
    Move b5c6p;
    b5c6p.source.colRow = 0x14;
    b5c6p.dest.colRow = 0x25;
    b5c6p.capture = PAWN;
+   b5c6p.moveType = Move::ENPASSANT;
    
    // EXERCISE
    pawn.getMoves(moves, board);
@@ -444,6 +456,8 @@ void TestPawn::getMoves_enpassantBlack()
 {
    // SETUP
    BoardEmpty board;
+   board.moveNumber = 2;
+
    
    //subject piece
    Pawn pawn(7, 7, false /*white*/); // we will reset all this.
@@ -467,17 +481,22 @@ void TestPawn::getMoves_enpassantBlack()
    wPawn3.position.colRow = 0x63;
    board.board[6][3] = &wPawn3;
    
+   wPawn1.setLastMove(board.getCurrentMove());
+   wPawn3.setLastMove(board.getCurrentMove());
+
    set <Move> moves;
    
    Move f5e4p;
-   f5e4p.source.colRow = 0x15;
-   f5e4p.dest.colRow = 0x04;
+   f5e4p.source.colRow = 0x53;
+   f5e4p.dest.colRow = 0x42;
    f5e4p.capture = PAWN;
+   f5e4p.moveType = Move::ENPASSANT;
    
    Move f5g4p;
-   f5g4p.source.colRow = 0x15;
-   f5g4p.dest.colRow = 0x24;
+   f5g4p.source.colRow = 0x53;
+   f5g4p.dest.colRow = 0x62;
    f5g4p.capture = PAWN;
+   f5g4p.moveType = Move::ENPASSANT;
    
    // EXERCISE
    pawn.getMoves(moves, board);
@@ -540,16 +559,21 @@ void TestPawn::getMoves_promotionWhite()
    b7a8p.source.colRow = 0x16;
    b7a8p.dest.colRow = 0x07;
    b7a8p.capture = PAWN;
+   b7a8p.promote = QUEEN;
    
    Move b7b8p;
    b7b8p.source.colRow = 0x16;
    b7b8p.dest.colRow = 0x17;
    b7b8p.capture = SPACE;
+   b7b8p.promote = QUEEN;
+
    
    Move b7c8p;
    b7c8p.source.colRow = 0x16;
    b7c8p.dest.colRow = 0x27;
    b7c8p.capture = PAWN;
+   b7c8p.promote = QUEEN;
+
    
    // EXERCISE
    pawn.getMoves(moves, board);
@@ -613,16 +637,19 @@ void TestPawn::getMoves_promotionBlack()
    e2d1p.source.colRow = 0x41;
    e2d1p.dest.colRow = 0x30;
    e2d1p.capture = ROOK;
+   e2d1p.promote = QUEEN;
    
    Move e2e1p;
    e2e1p.source.colRow = 0x41;
    e2e1p.dest.colRow = 0x40;
    e2e1p.capture = SPACE;
+   e2e1p.promote = QUEEN;
    
    Move e2f1p;
    e2f1p.source.colRow = 0x41;
    e2f1p.dest.colRow = 0x50;
    e2f1p.capture = ROOK;
+   e2f1p.promote = QUEEN;
    
    // EXERCISE
    pawn.getMoves(moves, board);

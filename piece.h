@@ -70,7 +70,7 @@ public:
    set <Move> getMovesNoslide(const Board& board,
                               const Delta deltas[],
                               int numDelta) const;
-   set <Move> Piece::getMovesSlide(const Board& board,
+   set <Move> getMovesSlide(const Board& board,
                                    const Delta directions[],
                                    int size) const;
 
