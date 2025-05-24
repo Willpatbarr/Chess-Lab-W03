@@ -14,6 +14,7 @@
 #include "testPosition.h"
 #include "testBoard.h"
 #include "testMove.h"
+#include "testBishop.h"
 
 // This code, and the similar IF_DEF in testRunner(), is to ensure that
 // you can see the text output (called the console window) and OpenGL's
@@ -54,4 +55,5 @@ void testRunner()
    TestPiece().run();
    TestSpace().run();
    TestKnight().run();
+   TestBishop().run();
 }

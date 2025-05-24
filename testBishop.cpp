@@ -13,8 +13,7 @@
 #include "board.h"
 #include "uiDraw.h"
 #include <cassert>      
-
-
+using namespace std;
 
 
  /*************************************
@@ -33,7 +32,44 @@
   **************************************/
 void TestBishop::getMoves_blocked()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
+   // SETUP
+   BoardEmpty board;
+
+   Bishop bishop(2, 1, true /*white*/);
+   bishop.fWhite = true;
+   bishop.position.colRow = 0x21;
+   board.board[2][1] = &bishop;
+
+   White w1(PAWN);
+   board.board[1][0] = &w1;
+
+   White w2(PAWN);
+   board.board[1][2] = &w2;
+
+   White w3(PAWN);
+   board.board[3][0] = &w3;
+
+   White w4(PAWN);
+   board.board[3][2] = &w4;
+
+   set <Move> moves;
+
+   // EXERCISE
+   
+   bishop.getMoves(moves, board);
+
+   // VERIFY
+
+   //cout << moves.size() << endl;
+   assertUnit(moves.size() == 0);
+
+   // TEARDOWN
+   board.board[2][1] = nullptr;
+   board.board[1][0] = nullptr;
+   board.board[1][2] = nullptr;
+   board.board[3][0] = nullptr;
+   board.board[3][2] = nullptr;
+
 }
 
 /*************************************
@@ -52,7 +88,24 @@ void TestBishop::getMoves_blocked()
  **************************************/
 void TestBishop::getMoves_slideToEnd()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
+   // SETUP
+   BoardEmpty board;
+
+   Bishop bishop(2, 1, true /*white*/);
+   bishop.fWhite = true;
+   bishop.position.colRow = 0x21;
+   board.board[2][1] = &bishop;
+   set <Move> moves;
+
+   // EXERCISE
+   bishop.getMoves(moves, board);
+
+   // VERIFY
+   cout << moves.size() << endl;
+   assertUnit(moves.size() == 9);
+
+   // TEARDOWN
+   board.board[2][1] = nullptr;
 }
 
 
