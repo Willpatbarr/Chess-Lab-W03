@@ -500,7 +500,38 @@ void TestBoard::move_rookAttack()
  ********************************************************/
 void TestBoard::move_bishopSlide()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
+    // SETUP
+    Move e5g3;
+    e5g3.source.colRow = 0x44;
+    e5g3.dest.colRow = 0x62;
+    e5g3.capture = SPACE;
+    e5g3.promote = SPACE;
+    e5g3.isWhite = true;
+    e5g3.moveType = Move::MOVE;
+    Board board(nullptr, true /*noreset*/);
+    board.numMoves = 17;
+    board.board[4][4] = new PieceSpy(4, 4, true  /*isWhite*/, BISHOP);
+    board.board[6][2] = new PieceSpy(6, 2, false /*isWhite*/, SPACE);
+    board.board[4][4]->nMoves = 17;
+    PieceSpy::reset();
+
+    // EXERCISE
+    board.move(e5g3);
+
+    // VERIFY
+    assertUnit(18 == board.numMoves);
+    assertUnit(SPACE == (board.board[4][4])->getType());
+    assertUnit(BISHOP == (board.board[6][2])->getType());
+    assertUnit(PieceSpy::numConstruct == 0);
+    assertUnit(PieceSpy::numCopy == 0);
+    assertUnit(PieceSpy::numDelete == 0);
+    assertUnit(PieceSpy::numAssign == 0);
+    assertUnit(PieceSpy::numMove == 0);
+
+    // TEARDOWN
+    delete board.board[4][4];
+    delete board.board[6][2];
+    board.board[4][4] = board.board[6][2] = nullptr;
 }
 
 
@@ -521,7 +552,38 @@ void TestBoard::move_bishopSlide()
  ********************************************************/
 void TestBoard::move_bishopAttack()
 {
-   assertUnit(NOT_YET_IMPLEMENTED);
+    // SETUP
+    Move e5g3q;
+    e5g3q.source.colRow = 0x44;
+    e5g3q.dest.colRow = 0x62;
+    e5g3q.capture = QUEEN;
+    e5g3q.promote = SPACE;
+    e5g3q.isWhite = true;
+    e5g3q.moveType = Move::MOVE;
+    Board board(nullptr, true /*noreset*/);
+    board.numMoves = 17;
+    board.board[4][4] = new PieceSpy(4, 4, true  /*isWhite*/, BISHOP);
+    board.board[6][2] = new PieceSpy(6, 2, false /*isWhite*/, QUEEN);
+    board.board[4][4]->nMoves = 17;
+    PieceSpy::reset();
+
+    // EXERCISE
+    board.move(e5g3q);
+
+    // VERIFY
+    assertUnit(18 == board.numMoves);
+    assertUnit(SPACE == (board.board[4][4])->getType());
+    assertUnit(BISHOP == (board.board[6][2])->getType());
+    assertUnit(PieceSpy::numConstruct == 0);
+    assertUnit(PieceSpy::numCopy == 0);
+    assertUnit(PieceSpy::numDelete == 0);
+    assertUnit(PieceSpy::numAssign == 0);
+    assertUnit(PieceSpy::numMove == 0);
+
+    // TEARDOWN
+    delete board.board[4][4];
+    delete board.board[6][2];
+    board.board[4][4] = board.board[6][2] = nullptr;
 }
 
 /********************************************************

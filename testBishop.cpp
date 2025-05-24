@@ -258,43 +258,43 @@ void TestBishop::getMoves_slideToCapture()
    Move c2e4;
    Move c2f5;
    Move c2g6;
-   Move c2b1P;
-   Move c2d1P;
-   Move c2h7P;
-   Move c2a4P;
+   Move c2b1p;
+   Move c2d1p;
+   Move c2h7p;
+   Move c2a4p;
 
-   c2a4P.capture = c2b1P.capture = c2d1P.capture = 
-   c2h7P.capture = PAWN;
+   c2a4p.capture = c2b1p.capture = c2d1p.capture = 
+   c2h7p.capture = PAWN;
 
-   c2a4P.source.colRow = c2b3.source.colRow = c2b1P.source.colRow =
-   c2d1P.source.colRow = c2d3.source.colRow = c2e4.source.colRow =
-   c2f5.source.colRow = c2g6.source.colRow = c2h7P.source.colRow = 
+   c2a4p.source.colRow = c2b3.source.colRow = c2b1p.source.colRow =
+   c2d1p.source.colRow = c2d3.source.colRow = c2e4.source.colRow =
+   c2f5.source.colRow = c2g6.source.colRow = c2h7p.source.colRow = 
    0x21;
 
-   c2a4P.dest.colRow = 0x03;
    c2b3.dest.colRow = 0x12;
-   c2b1P.dest.colRow = 0x10;
-   c2d1P.dest.colRow = 0x30;
+   c2a4p.dest.colRow = 0x03;
+   c2b1p.dest.colRow = 0x10;
+   c2d1p.dest.colRow = 0x30;
    c2d3.dest.colRow = 0x32;
    c2e4.dest.colRow = 0x43;
    c2f5.dest.colRow = 0x54;
    c2g6.dest.colRow = 0x65;
-   c2h7P.dest.colRow = 0x76;
+   c2h7p.dest.colRow = 0x76;
 
    // EXERCISE
    bishop.getMoves(moves, board);
 
    // VERIFY
    assertUnit(moves.size() == 9);
-   assertUnit(moves.find(c2a4P) != moves.end());
+   assertUnit(moves.find(c2a4p) != moves.end());
    assertUnit(moves.find(c2b3) != moves.end());
-   assertUnit(moves.find(c2b1P) != moves.end());
-   assertUnit(moves.find(c2d1P) != moves.end());
+   assertUnit(moves.find(c2b1p) != moves.end());
+   assertUnit(moves.find(c2d1p) != moves.end());
    assertUnit(moves.find(c2d3) != moves.end());
    assertUnit(moves.find(c2e4) != moves.end());
    assertUnit(moves.find(c2f5) != moves.end());
    assertUnit(moves.find(c2g6) != moves.end());
-   assertUnit(moves.find(c2h7P) != moves.end());
+   assertUnit(moves.find(c2h7p) != moves.end());
 
    // TEARDOWN
    board.board[2][1] = nullptr;
