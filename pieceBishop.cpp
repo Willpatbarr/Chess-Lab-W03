@@ -13,8 +13,6 @@
 
 #include <iostream>
 
-using namespace std;
-
 /**********************************************
  * BISHOP : GET POSITIONS
  *          Find all the possible moves for 

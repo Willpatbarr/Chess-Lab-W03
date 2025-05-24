@@ -10,6 +10,8 @@
 #pragma once
 
 #include "piece.h"
+#include "pieceType.h"
+#include "uiDraw.h"
 
 /***************************************************
  * BISHOP

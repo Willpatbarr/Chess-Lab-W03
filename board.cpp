@@ -13,6 +13,11 @@
 #include "piece.h"
 #include "pieceSpace.h"
 #include "pieceKnight.h"
+#include "pieceBishop.h"
+#include "pieceRook.h"
+#include "piecePawn.h"
+#include "pieceKing.h"
+#include "pieceQueen.h"
 #include <cassert>
 
 #include <iostream>
@@ -107,11 +112,6 @@ Board::Board(ogstream* pgout, bool noreset) : pgout(pgout), numMoves(0)
       for (int r = 0; r < 8; r++)
          for(int c = 0; c < 8; c++)
             board[c][r] = nullptr;
-
-   //board[1][0] = new Knight(1, 0, true);  // white knight on b1
-   //board[6][0] = new Knight(6, 0, true);  // white knight on g1
-   //board[1][7] = new Knight(1, 7, false);  // black knight on b8
-   //board[6][7] = new Knight(6, 7, false);  // black knight on g8
 }
 
 
@@ -167,47 +167,35 @@ void Board::move(const Move& move)
    Position s = move.getSrc();
    Position d = move.getDes();
 
-   Piece * pSrc = board[s.getCol()][s.getRow()];
-   Piece * pDes = board[d.getCol()][d.getRow()];
+   Piece* pSrc = board[s.getCol()][s.getRow()];
+   Piece* pDes = board[d.getCol()][d.getRow()];
    assert(pSrc->getType() != SPACE);
    assert(s.isValid());
    assert(d.isValid());
 
-   switch (move.getMoveType())
+   Move::MoveType type = move.getMoveType();
+
+   if (type == Move::MOVE || type == Move::ENPASSANT)
    {
-      case Move::MOVE:
-      {
-         PieceType ptNew = move.getPromotion() == SPACE ? pSrc->getType() :
-                                                          move.getPromotion();
-         Piece * pSpace = new Space(s.getCol(), s.getRow());
-         Piece * pNew   = factory(ptNew, d.getCol(), d.getRow());
-         *pNew = *pSrc;
-         pNew->setLastMove(getCurrentMove());
+      PieceType ptNew = (move.getPromotion() == SPACE) ? pSrc->getType() :
+         move.getPromotion();
 
-         board[s.getCol()][s.getRow()] = pSpace;
-         board[d.getCol()][d.getRow()] = pNew;
+      Piece* pSpace = new Space(s.getCol(), s.getRow());
+      Piece* pNew = factory(ptNew, d.getCol(), d.getRow());
+      *pNew = *pSrc;
+      pNew->setLastMove(getCurrentMove());
 
-         numMoves++;
-         break;
-      }
+      board[s.getCol()][s.getRow()] = pSpace;
+      board[d.getCol()][d.getRow()] = pNew;
 
-      case Move::ENPASSANT:
-         assert(false);
-         break;
-
-      case Move::CASTLE_KING:
-         assert(false);
-         break;
-
-      case Move::CASTLE_QUEEN:
-         assert(false);
-         break;
-
-      default:
-         break;
+      numMoves++;
    }
-}
+   else if (type == Move::CASTLE_KING || type == Move::CASTLE_QUEEN)
+   {
+      assert(false); // Castle logic not yet implemented
+   }
 
+}
 /**********************************************
  * FACTORY
  * A helper function to create pieces
@@ -222,7 +210,7 @@ Piece* factory(PieceType ptNew, int c, int r)
       // return new King(c, r); 
       break;
    case QUEEN:
-      // return new Queen(c, r); 
+      return new Queen(c, r, true); 
       break;
    case ROOK:
       // return new Rook(c, r); 
@@ -233,7 +221,7 @@ Piece* factory(PieceType ptNew, int c, int r)
    case KNIGHT:
       return new Knight(c, r, true); 
    case PAWN:
-      // return new Pawn(c, r); 
+      return new Pawn(c, r, true); 
       break;
    default:
       break;
