@@ -13,6 +13,7 @@
 #include "board.h"
 #include  "move.h"
 #include "position.h"
+#include "uiDraw.h"
 
 /***************************************************
  * PAWN
