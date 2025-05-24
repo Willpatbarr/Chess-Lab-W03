@@ -410,18 +410,16 @@ void TestPawn::getMoves_enpassantWhite()
    b5a6p.source.colRow = 0x14;
    b5a6p.dest.colRow = 0x05;
    b5a6p.capture = PAWN;
-   b5a6p.setEnPassant();
+   b5a6p.moveType = Move::ENPASSANT;
    
    Move b5c6p;
    b5c6p.source.colRow = 0x14;
    b5c6p.dest.colRow = 0x25;
    b5c6p.capture = PAWN;
-   b5c6p.setEnPassant();
+   b5c6p.moveType = Move::ENPASSANT;
    
    // EXERCISE
    pawn.getMoves(moves, board);
-   
-   std::cout << "Moves size: " << moves.size() << std::endl;
    
    // VERIFY
    assertUnit(moves.size() == 2);  // many possible moves
@@ -492,17 +490,16 @@ void TestPawn::getMoves_enpassantBlack()
    f5e4p.source.colRow = 0x53;
    f5e4p.dest.colRow = 0x42;
    f5e4p.capture = PAWN;
+   f5e4p.moveType = Move::ENPASSANT;
    
    Move f5g4p;
    f5g4p.source.colRow = 0x53;
    f5g4p.dest.colRow = 0x62;
    f5g4p.capture = PAWN;
+   f5g4p.moveType = Move::ENPASSANT;
    
    // EXERCISE
    pawn.getMoves(moves, board);
-   
-   std::cout << "Moves size: " << moves.size() << std::endl;
-   
    
    // VERIFY
    assertUnit(moves.size() == 2);  // many possible moves
@@ -562,16 +559,21 @@ void TestPawn::getMoves_promotionWhite()
    b7a8p.source.colRow = 0x16;
    b7a8p.dest.colRow = 0x07;
    b7a8p.capture = PAWN;
+   b7a8p.promote = QUEEN;
    
    Move b7b8p;
    b7b8p.source.colRow = 0x16;
    b7b8p.dest.colRow = 0x17;
    b7b8p.capture = SPACE;
+   b7b8p.promote = QUEEN;
+
    
    Move b7c8p;
    b7c8p.source.colRow = 0x16;
    b7c8p.dest.colRow = 0x27;
    b7c8p.capture = PAWN;
+   b7c8p.promote = QUEEN;
+
    
    // EXERCISE
    pawn.getMoves(moves, board);
@@ -635,16 +637,19 @@ void TestPawn::getMoves_promotionBlack()
    e2d1p.source.colRow = 0x41;
    e2d1p.dest.colRow = 0x30;
    e2d1p.capture = ROOK;
+   e2d1p.promote = QUEEN;
    
    Move e2e1p;
    e2e1p.source.colRow = 0x41;
    e2e1p.dest.colRow = 0x40;
    e2e1p.capture = SPACE;
+   e2e1p.promote = QUEEN;
    
    Move e2f1p;
    e2f1p.source.colRow = 0x41;
    e2f1p.dest.colRow = 0x50;
    e2f1p.capture = ROOK;
+   e2f1p.promote = QUEEN;
    
    // EXERCISE
    pawn.getMoves(moves, board);

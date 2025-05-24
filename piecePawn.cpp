@@ -61,7 +61,16 @@ void Pawn::getMoves(set <Move>& moves, const Board& board) const
       
    // add all of them to the deltas array
    set<Move> generated = getMovesNoslide(board, deltas, numDeltas);
-      moves.insert(generated.begin(), generated.end());
+   for (Move m : generated)
+   {
+      int destRow = m.getDes().getRow();
+      if ((fWhite && destRow == 7) || (!fWhite && destRow == 0))
+      {
+         m.setPromote(QUEEN);
+      }
+      moves.insert(m);
+   }
+
    
    // if the piece can en passant
    for (int dCol = -1; dCol <= 1; dCol += 2) // use a for loop to check for both side positions
@@ -84,7 +93,6 @@ void Pawn::getMoves(set <Move>& moves, const Board& board) const
             m.setWhiteMove(fWhite);
             m.setEnPassant(); // make it an enpassant
             m.setCapture(PAWN);
-            std::cout << "Adding en passant move: " << m.getText() << std::endl;
 
             moves.insert(m);
          }
