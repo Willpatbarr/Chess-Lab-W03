@@ -294,7 +294,7 @@ void TestBoard::move_pawnEnpassant()
 {  // SETUP
    Move a5b6E;
    a5b6E.source.colRow = 0x04;
-   a5b6E.dest.colRow = 0x16;
+   a5b6E.dest.colRow = 0x15;
    a5b6E.capture = PAWN;
    a5b6E.promote = SPACE;
    a5b6E.isWhite = true;
