@@ -18,7 +18,8 @@
 class TestMove;  
 class TestBoard;  
 class TestKnight;  
-class TestKing; 
+class TestKing;
+class TestPawn;
 
 /***************************************************  
 * MOVE  
@@ -31,8 +32,9 @@ public:
 
   friend TestMove;  
   friend TestBoard;  
-  friend TestKnight;  
-  friend class TestKing; // Correct friend declaration  
+  friend TestKnight;
+  friend TestPawn;
+  friend class TestKing; // Correct friend declaration
 
   // constructors  
   Move();  
