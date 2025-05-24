@@ -33,8 +33,9 @@ public:
   friend TestMove;  
   friend TestBoard;  
   friend TestKnight;
+  friend TestRook;
   friend TestPawn;
-  friend class TestKing; // Correct friend declaration
+  friend TestKing;
 
   // constructors  
   Move();  

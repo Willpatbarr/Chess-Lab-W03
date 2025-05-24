@@ -10,7 +10,6 @@
 #include "pieceKing.h"
 #include "board.h"
 #include "uiDraw.h"    // for draw*()
-#include <vector>
 
 #include <iostream>
 
@@ -94,6 +93,7 @@ void King::getMoves(set <Move>& moves, const Board& board) const
    {
       deltas[deltaCount++] = { 0, 2 };   // kingside
    }
+   
    moves = getMovesNoslide(board, deltas, deltaCount);
 }
 

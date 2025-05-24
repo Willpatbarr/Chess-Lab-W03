@@ -6,24 +6,23 @@
 * Summary:
 *   PAWN class
 ************************************************************************/
-
 #include "pieceRook.h"
+#include "board.h"
 
 /************************************************
- * PAWN : getMoves()
+ * ROOK : getMoves()
  * get the possible moves the pawn can make and add them to the moves set
  ***********************************************/
 void Rook::getMoves(set <Move>& moves, const Board& board) const
 {
-   // if there is no piece blocking the pawn in one square
-
-   // if no piece is blocking 2 spaces away and the pawn aint moved yet
-
-   // if the pawn has a piece diagonal to the left or right
-
-   // if the piece can en passant
-
-   // add all of them to the deltas array
+   Delta directions[4] = {
+      {  0,  1 },  // up    (direction 1)
+      {  0, -1 },  // down  (direction 2)
+      { -1,  0 },  // left  (direction 3)
+      {  1,  0 }   // right (direction 4)
+   };
+   int size = sizeof(directions) / sizeof(directions[0]);
+   moves = getMovesSlide(board, directions, size);
 
 }
 

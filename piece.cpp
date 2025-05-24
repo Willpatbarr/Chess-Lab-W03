@@ -73,5 +73,48 @@ set <Move> Piece::getMovesNoslide(const Board& board,
    return moves;
 }
 
+/***************************************************
+* PIECE : GEN MOVES SLIDE
+*         From a vector of directions, find all the
+*         possible moves
+***************************************************/
+set <Move> Piece::getMovesSlide(const Board& board,
+   const Delta directions[], int size) const
+{
+   set <Move> moves;
+   for (int i = 0; i <= size; i++)
+   {
+      bool blocked = false;
+      Delta limit = directions[i];
+      Position cPos(position, limit);
+      while (cPos.isValid() && !blocked)
+      {
+         const Piece& p = board[cPos];
 
+         if (p.getType() == SPACE)
+         {
+            Move m;
+            m.setSrc(position);
+            m.setDes(cPos);
+            moves.insert(m);
+         }
+         else
+         {
+            if (p.isWhite() != fWhite)
+            {
+               Move m;
+               m.setSrc(position);
+               m.setDes(cPos);
+               m.setCapture(p.getType());
+               moves.insert(m);
+            }
+            blocked = true; // don't keep going
+         }
 
+         if (!blocked)
+            cPos = cPos + limit;
+      }
+
+   }
+   return moves;
+}

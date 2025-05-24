@@ -16,7 +16,7 @@
 #include "position.h"  // Because Position is a member variable
 #include "move.h"      // Because we return a set of Move
 #include "pieceType.h" // A piece type.
-#include <vector>
+//#include <vector>
 using std::set;
 
 // forward declaration because one of the Piece methods takes a Board
@@ -70,6 +70,10 @@ public:
    set <Move> getMovesNoslide(const Board& board,
                               const Delta deltas[],
                               int numDelta) const;
+   set <Move> Piece::getMovesSlide(const Board& board,
+                                   const Delta directions[],
+                                   int size) const;
+
 
 
    // setter
