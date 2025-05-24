@@ -10,6 +10,9 @@
  ************************************************************************/
 
 #include "piece.h"
+#include "board.h"
+#include  "move.h"
+#include "position.h"
 
 /***************************************************
  * PAWN
@@ -26,7 +29,5 @@ public:
    void display(ogstream* pgout)  const;
 
 private:
-   set <Move> getMovesNoslide(const Board& board,
-                              const Delta deltas[],
-                              int numDelta) const;
+   int direction = fWhite ? 1 : -1;
 };
