@@ -25,8 +25,4 @@ public:
    void getMoves(set <Move>& moves, const Board& board) const;
    void display(ogstream* pgout)  const;
 
-private:
-
-   bool canCastle(const Board& board) const;
-
 };

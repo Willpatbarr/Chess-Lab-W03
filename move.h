@@ -100,7 +100,7 @@ public:
   void setPromote(PieceType pt)       {promote  = pt;       update(); }  
   void setCastle(bool isKing)  
   {  
-     moveType = (isKing ? CASTLE_KING:CASTLE_KING);  
+     moveType = (isKing ? CASTLE_KING:CASTLE_QUEEN);  
      update();  
   }  
 

@@ -16,6 +16,7 @@
 #include "position.h"  // Because Position is a member variable
 #include "move.h"      // Because we return a set of Move
 #include "pieceType.h" // A piece type.
+#include <vector>
 using std::set;
 
 // forward declaration because one of the Piece methods takes a Board
@@ -69,6 +70,7 @@ public:
    set <Move> getMovesNoslide(const Board& board,
                               const Delta deltas[],
                               int numDelta) const;
+
 
    // setter
    virtual void setLastMove(int cMove)     { lastMove = cMove; ++nMoves;}
@@ -135,9 +137,9 @@ public:
    bool operator != (char letter)  const { assert(false); return true;  }
    bool isWhite()                  const { assert(false); return true;  }
    bool isMoved()                  const { assert(false); return true;  }
-   int  getNMoves()                const { assert(false); return 0;     }
+   int  getNMoves()                const {                return 0;     }
    void decrementNMoves()                { assert(false);               }
-   const Position & getPosition()  const { assert(false); return position; }
+   const Position & getPosition()  const { return position; }
    bool justMoved(int currentMove) const { assert(false); return true;  }
 
    // setter
@@ -208,9 +210,9 @@ private:
 class White : public PieceDummy
 {
    PieceType pt;
+   int nMove;
 public:
-   White() : PieceDummy(), pt(ROOK) {}
-   White(PieceType pt) : PieceDummy(), pt(pt) {}
+   White() : PieceDummy(), pt(ROOK) {}   White(PieceType pt) : PieceDummy(), pt(pt), nMove(0) {}
    bool isWhite() const { return true; }
    PieceType getType() const { return pt; }
    void getMoves(set <Move>& moves, const Board& board) const { }
@@ -226,6 +228,7 @@ public:
    PieceType getType() const { return pt; }
    void getMoves(set <Move>& moves, const Board& board) const { }
 };
+
 
 
 

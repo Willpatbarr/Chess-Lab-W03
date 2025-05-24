@@ -62,9 +62,16 @@ set <Move> Piece::getMovesNoslide(const Board& board,
          move.setWhiteMove(isWhite());
          if (board[posMove] != SPACE)
             move.setCapture(board[posMove].getType());
+         if (deltas[i].dCol == -2)
+            move.setCastle(false);
+         if (deltas[i].dCol == 2)
+            move.setCastle(true);
          moves.insert(move);
       }
    }
 
    return moves;
 }
+
+
+

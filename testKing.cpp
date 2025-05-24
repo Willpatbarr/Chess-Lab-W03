@@ -12,8 +12,10 @@
 #include "pieceKing.h"     
 #include "board.h"
 #include "uiDraw.h"
-#include <cassert>      
+#include <cassert>    
 
+#include <iostream>
+using namespace std;
 
  /*************************************
   * +---a-b-c-d-e-f-g-h---+
@@ -37,31 +39,31 @@ void TestKing::getMoves_blocked()
    King king(7, 7, false /*white*/); // we will reset all this.
    king.fWhite = true;
    king.position.colRow = 0x34;
-   board.board[3][6] = &king;
+   board.board[3][4] = &king;
 
    White w1(PAWN);
-   board.board[2][7] = &w1;  //uppercase is black, lowercase is white
+   board.board[2][5] = &w1;  //uppercase is black, lowercase is white
 
    White w2(PAWN);
-   board.board[3][7] = &w2;
+   board.board[3][5] = &w2;
 
    White w3(PAWN);
-   board.board[4][7] = &w3;
+   board.board[4][5] = &w3;
 
    White w4(PAWN);
-   board.board[4][6] = &w4;
+   board.board[4][4] = &w4;
 
    White w5(PAWN);
-   board.board[4][5] = &w5;
+   board.board[4][3] = &w5;
 
    White w6(PAWN);
-   board.board[3][5] = &w6;
+   board.board[3][3] = &w6;
 
    White w7(PAWN);
-   board.board[2][5] = &w7;
+   board.board[2][3] = &w7;
 
    White w8(PAWN);
-   board.board[2][6] = &w8;
+   board.board[2][4] = &w8;
 
    set <Move> moves;
 
@@ -70,19 +72,21 @@ void TestKing::getMoves_blocked()
 
    king.getMoves(moves, board);
 
+
    // VERIFY
    assertUnit(moves.size() == 0);
 
+
    // TEARDOWN
-   board.board[3][6] = nullptr;  // knight
-   board.board[2][7] = nullptr;
-   board.board[3][7] = nullptr;
-   board.board[4][7] = nullptr;
-   board.board[4][6] = nullptr;
-   board.board[4][5] = nullptr;
-   board.board[3][5] = nullptr;
+   board.board[3][4] = nullptr;  // knight
    board.board[2][5] = nullptr;
-   board.board[2][6] = nullptr;
+   board.board[3][5] = nullptr;
+   board.board[4][5] = nullptr;
+   board.board[4][4] = nullptr;
+   board.board[4][3] = nullptr;
+   board.board[3][3] = nullptr;
+   board.board[2][3] = nullptr;
+   board.board[2][4] = nullptr;
 }
 
 /*************************************
@@ -276,6 +280,7 @@ void TestKing::getMoves_free()
 
    king.getMoves(moves, board);
 
+
    // VERIFY
    assertUnit(moves.size() == 8);
    assertUnit(moves.find(d5c6) != moves.end());
@@ -439,6 +444,7 @@ void TestKing::getMoves_whiteCastle()
    assertUnit(moves.find(e1g1c) != moves.end());
 
 
+
    // TEARDOWN
    board.board[4][0] = nullptr;  // king
    board.board[3][1] = nullptr;
@@ -521,6 +527,7 @@ void TestKing::getMoves_blackCastle()
    assertUnit(moves.find(e8g8c) != moves.end());
 
 
+
    // TEARDOWN
    board.board[4][7] = nullptr;  // king
    board.board[3][6] = nullptr;
@@ -528,8 +535,10 @@ void TestKing::getMoves_blackCastle()
    board.board[5][6] = nullptr;
    board.board[0][7] = nullptr; //rook queen side
    board.board[7][7] = nullptr; //rook king side
-}
+   
 
+
+}
 
 /*************************************
  * +---a-b-c-d-e-f-g-h---+
@@ -671,6 +680,12 @@ void TestKing::getMoves_whiteCastleRookMoved()
    assertUnit(moves.size() == 2);
    assertUnit(moves.find(e1d1) != moves.end());
    assertUnit(moves.find(e1f1) != moves.end());
+
+   
+   //cout << moves.size() << endl;
+   //for (const Move& m : moves) {
+   //   cout << m.getText() << endl;
+   //}
 
 
    // TEARDOWN
