@@ -71,10 +71,10 @@ void Board::reset(bool fFree)
    board[6][7] = new Knight(6, 7, false);
 
    // Bishops
-   //board[2][0] = new Bishop(2, 0, true);
-   //board[5][0] = new Bishop(5, 0, true);
-   //board[2][7] = new Bishop(2, 7, false);
-   //board[5][7] = new Bishop(5, 7, false);
+   board[2][0] = new Bishop(2, 0, true);
+   board[5][0] = new Bishop(5, 0, true);
+   board[2][7] = new Bishop(2, 7, false);
+   board[5][7] = new Bishop(5, 7, false);
 
    // Queens
    board[3][0] = new Queen(3, 0, true);
@@ -318,7 +318,7 @@ Piece* factory(PieceType ptNew, int c, int r)
       return new Rook(c, r, true); 
       break;
    case BISHOP:
-      //return new Bishop(c, r, true); 
+      return new Bishop(c, r, true); 
       break;
    case KNIGHT:
       return new Knight(c, r, true); 
