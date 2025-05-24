@@ -407,13 +407,20 @@ void TestKing::getMoves_whiteCastle()
    White w3(PAWN);
    board.board[5][1] = &w3;
 
-   White rookQueen(ROOK);
-   board.board[0][0] = &rookQueen;
-   rookQueen.nMoves = 0;
 
-   White rookKing(ROOK);
-   board.board[7][0] = &rookKing;
+   Rook rookQueen(7, 7, false /*white*/); // we will reset all this.)
+   rookQueen.nMoves = -1;
+   rookQueen.fWhite = true;
+   rookQueen.nMoves = 0;
+   rookQueen.position.colRow = 0x00;
+   board.board[0][0] = &rookQueen;
+
+   Rook rookKing(7, 7, false /*white*/); // we will reset all this.)
+   rookKing.nMoves = -1;
+   rookKing.fWhite = true;
    rookKing.nMoves = 0;
+   rookKing.position.colRow = 0x70;
+   board.board[7][0] = &rookKing;
 
 
    set <Move> moves;
@@ -490,13 +497,20 @@ void TestKing::getMoves_blackCastle()
    White w3(PAWN);
    board.board[5][6] = &w3;
 
-   White rookQueen(ROOK);
-   board.board[0][7] = &rookQueen;
-   rookQueen.nMoves = 0;
 
-   White rookKing(ROOK);
-   board.board[7][7] = &rookKing;
+   Rook rookQueen(7, 7, false /*white*/); // we will reset all this.)
+   rookQueen.nMoves = -1;
+   rookQueen.fWhite = true;
+   rookQueen.nMoves = 0;
+   rookQueen.position.colRow = 0x00;
+   board.board[0][0] = &rookQueen;
+
+   Rook rookKing(7, 7, false /*white*/); // we will reset all this.)
+   rookKing.nMoves = -1;
+   rookKing.fWhite = true;
    rookKing.nMoves = 0;
+   rookKing.position.colRow = 0x70;
+   board.board[7][0] = &rookKing;
 
 
    set <Move> moves;
@@ -575,13 +589,19 @@ void TestKing::getMoves_whiteCastleKingMoved()
    White w3(PAWN);
    board.board[5][1] = &w3;
 
-   White rookQueen(ROOK);
-   board.board[0][0] = &rookQueen;
+   Rook rookQueen(7, 7, false /*white*/); // we will reset all this.)
+   rookQueen.nMoves = -1;
+   rookQueen.fWhite = true;
    rookQueen.nMoves = 0;
+   rookQueen.position.colRow = 0x00;
+   board.board[0][0] = &rookQueen;
 
-   White rookKing(ROOK);
-   board.board[7][0] = &rookKing;
+   Rook rookKing(7, 7, false /*white*/); // we will reset all this.)
+   rookKing.nMoves = -1;
+   rookKing.fWhite = true;
    rookKing.nMoves = 0;
+   rookKing.position.colRow = 0x70;
+   board.board[7][0] = &rookKing;
 
 
    set <Move> moves;
@@ -651,13 +671,19 @@ void TestKing::getMoves_whiteCastleRookMoved()
    White w3(PAWN);
    board.board[5][1] = &w3;
 
-   White rookQueen(ROOK);
-   board.board[0][0] = &rookQueen;
+   Rook rookQueen(7, 7, false /*white*/); // we will reset all this.)
+   rookQueen.nMoves = -1;
+   rookQueen.fWhite = true;
    rookQueen.nMoves = 1;
+   rookQueen.position.colRow = 0x00;
+   board.board[0][0] = &rookQueen;
 
-   White rookKing(ROOK);
-   board.board[7][0] = &rookKing;
+   Rook rookKing(7, 7, false /*white*/); // we will reset all this.)
+   rookKing.nMoves = -1;
+   rookKing.fWhite = true;
    rookKing.nMoves = 1;
+   rookKing.position.colRow = 0x70;
+   board.board[7][0] = &rookKing;
 
 
    set <Move> moves;
@@ -680,12 +706,6 @@ void TestKing::getMoves_whiteCastleRookMoved()
    assertUnit(moves.size() == 2);
    assertUnit(moves.find(e1d1) != moves.end());
    assertUnit(moves.find(e1f1) != moves.end());
-
-   
-   //cout << moves.size() << endl;
-   //for (const Move& m : moves) {
-   //   cout << m.getText() << endl;
-   //}
 
 
    // TEARDOWN
