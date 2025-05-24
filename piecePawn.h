@@ -29,5 +29,4 @@ public:
    void display(ogstream* pgout)  const;
 
 private:
-   int direction = fWhite ? 1 : -1;
 };
