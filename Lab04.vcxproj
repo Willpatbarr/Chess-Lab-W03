@@ -104,6 +104,8 @@
     <ClCompile Include="piece.cpp" />
     <ClCompile Include="pieceKing.cpp" />
     <ClCompile Include="pieceKnight.cpp" />
+    <ClCompile Include="piecePawn.cpp" />
+    <ClCompile Include="pieceRook.cpp" />
     <ClCompile Include="position.cpp" />
     <ClCompile Include="testRook.cpp" />
     <ClCompile Include="testPawn.cpp" />

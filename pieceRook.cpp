@@ -7,31 +7,31 @@
 *   PAWN class
 ************************************************************************/
 
-#include "piecePawn.h"
+#include "pieceRook.h"
 
 /************************************************
  * PAWN : getMoves()
  * get the possible moves the pawn can make and add them to the moves set
  ***********************************************/
-void Pawn::getMoves(set <Move>& moves, const Board& board) const
+void Rook::getMoves(set <Move>& moves, const Board& board) const
 {
    // if there is no piece blocking the pawn in one square
-   
+
    // if no piece is blocking 2 spaces away and the pawn aint moved yet
-   
+
    // if the pawn has a piece diagonal to the left or right
-   
+
    // if the piece can en passant
-   
+
    // add all of them to the deltas array
-   
+
 }
 
 /************************************************
  * PAWN : display
  * Show the troops
  ***********************************************/
-void Pawn::display(ogstream* pgout)  const
+void Rook::display(ogstream* pgout)  const
 {
 
 }
