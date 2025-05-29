@@ -117,7 +117,30 @@ Piece& Board::operator [] (const Position& pos)
 void Board::display(const Position & posHover, 
     const Position & posSelect) const
 {
+   set <Move> moves;
+
+
    pgout->drawBoard();
+   pgout->drawHover(posHover);
+   pgout->drawSelected(posSelect);
+   if(posSelect.isValid())
+   {
+      const Piece& cPiece = (*this)[posSelect];
+      cPiece.getMoves(moves, *this);
+
+
+      for (const Move& m : moves)
+      {
+         pgout->drawHover(m.getDes());
+         //if (posSelect == m.getDes())
+         //{
+         //   move(m);
+         //}
+      }
+      
+   }
+
+  
 
    for (int r = 0; r < 8; ++r)          
       for (int c = 0; c < 8; ++c)       
@@ -125,8 +148,7 @@ void Board::display(const Position & posHover,
          assert(nullptr != board[c][r]);
          board[c][r]->display(pgout);
       }
-   
-   
+
 }
 
 
