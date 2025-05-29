@@ -79,7 +79,9 @@ void Pawn::getMoves(set <Move>& moves, const Board& board) const
       side.adjustCol(dCol);
       if (side.isValid() &&
           board[side].getType() == PAWN &&
-          board[side].isWhite() != fWhite)
+          board[side].isWhite() != fWhite &&
+          board[side].getNMoves() == 1 &&
+          board[side].justMoved(board.getCurrentMove()))
       {
          Position target = position;
          target.adjustRow(fWhite ? 1 : -1);

@@ -16,6 +16,7 @@
 		531BE2AD2DE234B600695515 /* pieceRook.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 531BE2AC2DE234B600695515 /* pieceRook.cpp */; };
 		531BE2AE2DE234B600695515 /* pieceKing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 531BE2AA2DE234B600695515 /* pieceKing.cpp */; };
 		531BE2AF2DE234B600695515 /* pieceQueen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 531BE2AB2DE234B600695515 /* pieceQueen.cpp */; };
+		5358FC142DE27175001E53B8 /* pieceBishop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5358FC132DE27175001E53B8 /* pieceBishop.cpp */; };
 		C1EE0D9C2B28F3C600E5D6E1 /* chess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EE0D7D2B28F3C500E5D6E1 /* chess.cpp */; };
 		C1EE0D9D2B28F3C600E5D6E1 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EE0D7E2B28F3C500E5D6E1 /* test.cpp */; };
 		C1EE0D9E2B28F3C600E5D6E1 /* board.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C1EE0D7F2B28F3C500E5D6E1 /* board.cpp */; };
@@ -66,6 +67,7 @@
 		531BE2AA2DE234B600695515 /* pieceKing.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pieceKing.cpp; sourceTree = "<group>"; };
 		531BE2AB2DE234B600695515 /* pieceQueen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pieceQueen.cpp; sourceTree = "<group>"; };
 		531BE2AC2DE234B600695515 /* pieceRook.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pieceRook.cpp; sourceTree = "<group>"; };
+		5358FC132DE27175001E53B8 /* pieceBishop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = pieceBishop.cpp; sourceTree = "<group>"; };
 		C1EE0D732B28F39600E5D6E1 /* Lab04 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Lab04; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1EE0D7D2B28F3C500E5D6E1 /* chess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chess.cpp; sourceTree = "<group>"; };
 		C1EE0D7E2B28F3C500E5D6E1 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				531BE2AB2DE234B600695515 /* pieceQueen.cpp */,
 				531BE2AC2DE234B600695515 /* pieceRook.cpp */,
 				531BE2A22DDF7D0F00695515 /* testRook.cpp */,
+				5358FC132DE27175001E53B8 /* pieceBishop.cpp */,
 				C1EE0D7F2B28F3C500E5D6E1 /* board.cpp */,
 				C1EE0D8C2B28F3C600E5D6E1 /* board.h */,
 				C1EE0D7D2B28F3C500E5D6E1 /* chess.cpp */,
@@ -258,6 +261,7 @@
 				C1EE0DA12B28F3C600E5D6E1 /* pieceKnight.cpp in Sources */,
 				C1EE0DA92B28F3C600E5D6E1 /* testPiece.cpp in Sources */,
 				C1EE0DA72B28F3C600E5D6E1 /* move.cpp in Sources */,
+				5358FC142DE27175001E53B8 /* pieceBishop.cpp in Sources */,
 				C1EE0D9F2B28F3C600E5D6E1 /* uiInteract.cpp in Sources */,
 				C1EE0DA82B28F3C600E5D6E1 /* testPosition.cpp in Sources */,
 				C1EE0DA52B28F3C600E5D6E1 /* testBoard.cpp in Sources */,
