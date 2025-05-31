@@ -376,7 +376,7 @@ void TestPawn::getMoves_enpassantWhite()
 {
    // SETUP
    BoardEmpty board;
-   board.moveNumber = 2;
+   board.moveNumber = 3;
 
    
       //subject piece
@@ -388,6 +388,8 @@ void TestPawn::getMoves_enpassantWhite()
       //accompanying pieces
    Pawn bPawn1(7, 7, false /*white*/); // we will reset all this.
    bPawn1.fWhite = false;
+   bPawn1.nMoves = 1;
+   bPawn1.lastMove = 2;
    bPawn1.position.colRow = 0x04;
    board.board[0][4] = &bPawn1;
    
@@ -398,11 +400,11 @@ void TestPawn::getMoves_enpassantWhite()
    
    Pawn bPawn3(7, 7, false /*white*/); // we will reset all this.
    bPawn3.fWhite = false;
+   bPawn3.nMoves = 1;
+   bPawn3.lastMove = 2;
    bPawn3.position.colRow = 0x24;
    board.board[2][4] = &bPawn3;
    
-   bPawn1.setLastMove(board.getCurrentMove());
-   bPawn3.setLastMove(board.getCurrentMove());
    
    set <Move> moves;
    
@@ -456,7 +458,7 @@ void TestPawn::getMoves_enpassantBlack()
 {
    // SETUP
    BoardEmpty board;
-   board.moveNumber = 2;
+   board.moveNumber = 3;
 
    
    //subject piece
@@ -469,6 +471,8 @@ void TestPawn::getMoves_enpassantBlack()
    Pawn wPawn1(7, 7, false /*white*/); // we will reset all this.
    wPawn1.fWhite = true;
    wPawn1.position.colRow = 0x43;
+   wPawn1.nMoves = 1;
+   wPawn1.lastMove = 2;
    board.board[4][3] = &wPawn1;
    
    Pawn wPawn2(7, 7, false /*white*/); // we will reset all this.
@@ -478,12 +482,11 @@ void TestPawn::getMoves_enpassantBlack()
    
    Pawn wPawn3(7, 7, false /*white*/); // we will reset all this.
    wPawn3.fWhite = true;
+   wPawn3.nMoves = 1;
+   wPawn3.lastMove = 2;
    wPawn3.position.colRow = 0x63;
    board.board[6][3] = &wPawn3;
    
-   wPawn1.setLastMove(board.getCurrentMove());
-   wPawn3.setLastMove(board.getCurrentMove());
-
    set <Move> moves;
    
    Move f5e4p;

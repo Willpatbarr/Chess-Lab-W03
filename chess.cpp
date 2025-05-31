@@ -40,7 +40,23 @@ void callBack(Interface *pUI, void * p)
    ogs.drawSelected(pUI->getSelectPosition());
    ogs.drawPossible(pUI->getSelectPosition());
 
+   //if (posSelect.isValid())
+   //{
+   //   const Piece& cPiece = (*this)[posSelect];
+   //   cPiece.getMoves(moves, *this);
+
+   //   for (const Move& m : moves)
+   //   {
+   //      pgout->drawHover(m.getDes());
+   //      if (posSelect == m.getDes())
+   //      {
+   //         move(m);
+   //      }
+   //   }
+   //}
+
    pBoard->display(pUI->getHoverPosition(), pUI->getSelectPosition());
+
 }
 
 

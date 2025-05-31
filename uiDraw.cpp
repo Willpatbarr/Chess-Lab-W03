@@ -55,8 +55,8 @@ const int RGB_WHITE_SQUARE[] = { 210, 180, 140 };
 const int RGB_BLACK_SQUARE[] = { 165, 42, 42 };
 
 // the color of a selected square
-const int RGB_SELECTED[] = { 255, 0, 0 };
-//const int RGB_SELECTED[] = { 115, 88, 70 };
+//const int RGB_SELECTED[] = { 255, 0, 0 };
+const int RGB_SELECTED[] = { 29, 96, 212 };
 
 // color of the coordinates
 const int RGB_LETTERS[] = { 128, 128, 128 };

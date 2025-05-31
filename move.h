@@ -22,6 +22,7 @@ class TestKing;
 class TestPawn;
 class TestQueen;
 class TestRook;
+class TestBishop;
 
 /***************************************************  
 * MOVE  
