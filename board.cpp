@@ -125,8 +125,6 @@ void Board::display(const Position & posHover,
          assert(nullptr != board[c][r]);
          board[c][r]->display(pgout);
       }
-   
-   
 }
 
 

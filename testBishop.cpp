@@ -233,7 +233,7 @@ void TestBishop::getMoves_slideToCapture()
    BoardEmpty board;
 
    Bishop bishop(7, 7, true /*white*/);
-   bishop.fWhite = true;
+   bishop.fWhite = false;
    bishop.position.colRow = 0x21;
    board.board[2][1] = &bishop;
 
@@ -283,6 +283,7 @@ void TestBishop::getMoves_slideToCapture()
 
    // EXERCISE
    bishop.getMoves(moves, board);
+
 
    // VERIFY
    assertUnit(moves.size() == 9);
