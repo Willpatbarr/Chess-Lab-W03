@@ -503,14 +503,14 @@ void TestKing::getMoves_blackCastle()
    rookQueen.fWhite = true;
    rookQueen.nMoves = 0;
    rookQueen.position.colRow = 0x00;
-   board.board[0][0] = &rookQueen;
+   board.board[0][7] = &rookQueen;
 
    Rook rookKing(7, 7, false /*white*/); // we will reset all this.)
    rookKing.nMoves = -1;
    rookKing.fWhite = true;
    rookKing.nMoves = 0;
    rookKing.position.colRow = 0x70;
-   board.board[7][0] = &rookKing;
+   board.board[7][7] = &rookKing;
 
 
    set <Move> moves;
