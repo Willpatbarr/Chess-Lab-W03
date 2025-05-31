@@ -28,30 +28,73 @@ using namespace std;
  * engine will wait until the proper amount of
  * time has passed and put the drawing on the screen.
  **************************************/
-void callBack(Interface *pUI, void * p)
+void callBack(Interface* pUI, void* p)
 {
-   // the first step is to cast the void pointer into a game object. This
-   // is the first step of every single callback function in OpenGL. 
-   Board * pBoard = (Board *)p;  
+   Board* pBoard = (Board*)p;
 
-   //if (posSelect.isValid())
-   //{
-   //   const Piece& cPiece = (*this)[posSelect];
-   //   cPiece.getMoves(moves, *this);
+   Position hover = pUI->getHoverPosition();
+   Position select = pUI->getSelectPosition();
+   static Position posFrom; // keeps track of the first click
 
-   //   for (const Move& m : moves)
-   //   {
-   //      pgout->drawHover(m.getDes());
-   //      if (posSelect == m.getDes())
-   //      {
-   //         move(m);
-   //      }
-   //   }
-   //}
+   // If there is a valid selection (player clicked a square)
+   if (select.isValid())
+   {
+      // If we haven't selected a piece yet (first click)
+      if (!posFrom.isValid())
+      {
+         // If the square has a movable piece (non-space, correct color)
+         const Piece& piece = (*pBoard)[select];
+         if (piece.getType() != SPACE &&
+             piece.isWhite() == pBoard->whiteTurn())
+         {
+            posFrom = select;
+         }
 
-   pBoard->display(pUI->getHoverPosition(), pUI->getSelectPosition());
+         // Clear selection so we don’t immediately try a move next frame
+         pUI->clearSelectPosition();
+      }
+      else if (posFrom != select)
+      {
+         // Second click — try to move from posFrom to select
+         const Piece& piece = (*pBoard)[posFrom];
+         set<Move> moves;
+         piece.getMoves(moves, *pBoard);
 
+         // Check if the selected destination is a legal move
+         for (const Move& move : moves)
+         {
+            if (move.getDes() == select)
+            {
+               // It's a valid move! Execute it.
+               pBoard->move(move);
+               break;
+            }
+         }
+
+         // Reset selection for the next move
+         posFrom.setInvalid();
+         pUI->clearSelectPosition();
+      }
+      else
+      {
+         // Player clicked the same square twice → cancel selection
+         posFrom.setInvalid();
+         pUI->clearSelectPosition();
+      }
+   }
+
+   // Optional: Handle reset
+   if (pUI->getKey() == 'r')
+   {
+      pBoard->reset();
+      pUI->resetKey();
+      posFrom.setInvalid();
+   }
+
+   // Always render board
+   pBoard->display(hover, posFrom);
 }
+
 
 
 /*********************************
