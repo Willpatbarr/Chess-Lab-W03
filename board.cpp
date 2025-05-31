@@ -277,16 +277,17 @@ void Board::move(const Move& move)
       board[d.getCol()][d.getRow()] = pKing;
 
       // Move the rook from h1 (7,0) to f1 (5,0)
-      Piece* pRookSrc = board[7][0];
+      int row = s.getRow();
+      Piece* pRookSrc = board[7][row];
       assert(pRookSrc->getType() == ROOK);
 
-      Piece* pSpaceR = new Space(7, 0);
-      Piece* pRook = factory(ROOK, 5, 0);
+      Piece* pSpaceR = new Space(7, row);
+      Piece* pRook = factory(ROOK, 5, row);
       *pRook = *pRookSrc;
       pRook->setLastMove(getCurrentMove());
 
-      board[7][0] = pSpaceR;
-      board[5][0] = pRook;
+      board[7][row] = pSpaceR;
+      board[5][row] = pRook;
 
       numMoves++;
    }
@@ -305,16 +306,17 @@ void Board::move(const Move& move)
       board[d.getCol()][d.getRow()] = pKing;
 
       // Move the rook from a1 (0,0) to d1 (3,0)
-      Piece* pRookSrc = board[0][0];
+      int row = s.getRow();
+      Piece* pRookSrc = board[0][row];
       assert(pRookSrc->getType() == ROOK);
 
-      Piece* pSpaceR = new Space(0, 0);
-      Piece* pRook = factory(ROOK, 3, 0);
+      Piece* pSpaceR = new Space(0, row);
+      Piece* pRook = factory(ROOK, 3, row);
       *pRook = *pRookSrc;
       pRook->setLastMove(getCurrentMove());
 
-      board[0][0] = pSpaceR;
-      board[3][0] = pRook;
+      board[0][row] = pSpaceR;
+      board[3][row] = pRook;
 
       numMoves++;
    }

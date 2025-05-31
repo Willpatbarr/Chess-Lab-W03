@@ -30,10 +30,10 @@ void King::display(ogstream* pgout) const
  *********************************************/
 void King::getMoves(set <Move>& moves, const Board& board) const
 {
-   Delta deltas[10];
-
+   Delta deltas[8];
    int deltaCount = 0;
 
+   // Normal king moves
    deltas[deltaCount++] = { -1,  1 };
    deltas[deltaCount++] = {  0,  1 };
    deltas[deltaCount++] = {  1,  1 };
@@ -43,57 +43,55 @@ void King::getMoves(set <Move>& moves, const Board& board) const
    deltas[deltaCount++] = {  0, -1 };
    deltas[deltaCount++] = {  1, -1 };
 
+   // Add normal king moves
+   moves = getMovesNoslide(board, deltas, deltaCount);
 
-   bool canCastleQ = false;
-   bool canCastleK = false;
-
+   // Castling logic
    if (nMoves == 0)
    {
       int row = position.getRow();
-
       Position qRookPos(0, row);
       Position kRookPos(7, row);
 
       const Piece& qRPiece = board[qRookPos];
-      const Piece& kRPiece = board[qRookPos];
+      const Piece& kRPiece = board[kRookPos];
 
-      
-      Position b(row, 1);
-      Position c(row, 2);
-      Position d(row, 3);
-      Position e(row, 4);
-      Position f(row, 5);
-      Position g(row, 6);
-
-      //cout << "  " << qRPiece.getType() << "  qRPiece moves: " << qRPiece.getNMoves() << endl;
+      Position b(1, row);
+      Position c(2, row);
+      Position d(3, row);
+      Position f(5, row);
+      Position g(6, row);
 
       if (position.getCol() == 4)
       {
-         if ((board[b].getType() == SPACE || board[b].getType() == KING) &&
-            (board[c].getType() == SPACE || board[c].getType() == KING) &&
-            (board[d].getType() == SPACE || board[d].getType() == KING))
-            if (qRPiece.getNMoves() == 0)
-               canCastleQ = true;
-         if ((board[f].getType() == SPACE || board[f].getType() == KING) &&
-            (board[g].getType() == SPACE || board[g].getType() == KING))
-            if (kRPiece.getNMoves() == 0)
-               canCastleK = true;
+         // Queenside castling
+         if (board[b].getType() == SPACE &&
+             board[c].getType() == SPACE &&
+             board[d].getType() == SPACE &&
+             qRPiece.getType() == ROOK &&
+             qRPiece.getNMoves() == 0)
+         {
+            Move castleQ;
+            castleQ.setSrc(position);
+            castleQ.setDes(c);  // King ends up on c-file (col=2)
+            castleQ.setCastle(false);
+            moves.insert(castleQ);
+         }
 
-      }         
-
-      
+         // Kingside castling
+         if (board[f].getType() == SPACE &&
+             board[g].getType() == SPACE &&
+             kRPiece.getType() == ROOK &&
+             kRPiece.getNMoves() == 0)
+         {
+            Move castleK;
+            castleK.setSrc(position);
+            castleK.setDes(g);  // King ends up on g-file (col=6)
+            castleK.setCastle(true);
+            moves.insert(castleK);
+         }
+      }
    }
-
-   if (canCastleQ)
-   {
-      deltas[deltaCount++] = { 0, -2 };  // queenside
-
-   }
-   if (canCastleK)
-   {
-      deltas[deltaCount++] = { 0, 2 };   // kingside
-   }
-   
-   moves = getMovesNoslide(board, deltas, deltaCount);
 }
+
 
