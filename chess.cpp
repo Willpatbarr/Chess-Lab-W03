@@ -55,6 +55,21 @@ void callBack(Interface *pUI, void * p)
    //   }
    //}
 
+   //if (posSelect.isValid())
+   //{
+   //   const Piece& cPiece = (*this)[posSelect];
+   //   cPiece.getMoves(moves, *this);
+
+   //   for (const Move& m : moves)
+   //   {
+   //      pgout->drawHover(m.getDes());
+   //      if (posSelect == m.getDes())
+   //      {
+   //         move(m);
+   //      }
+   //   }
+   //}
+
    pBoard->display(pUI->getHoverPosition(), pUI->getSelectPosition());
 
 }
