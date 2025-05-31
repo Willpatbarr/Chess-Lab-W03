@@ -18,7 +18,6 @@
 #include <cassert>        // for ASSERT
 #include <fstream>        // for IFSTREAM
 #include <string>         // for STRING
-#include "move.h"
 using namespace std;
 
 
@@ -35,10 +34,20 @@ void callBack(Interface *pUI, void * p)
    // is the first step of every single callback function in OpenGL. 
    Board * pBoard = (Board *)p;
 
-   ogstream ogs;
-   ogs.drawHover(pUI->getHoverPosition());
-   ogs.drawSelected(pUI->getSelectPosition());
-   ogs.drawPossible(pUI->getSelectPosition());
+   //if (posSelect.isValid())
+   //{
+   //   const Piece& cPiece = (*this)[posSelect];
+   //   cPiece.getMoves(moves, *this);
+
+   //   for (const Move& m : moves)
+   //   {
+   //      pgout->drawHover(m.getDes());
+   //      if (posSelect == m.getDes())
+   //      {
+   //         move(m);
+   //      }
+   //   }
+   //}
 
    //if (posSelect.isValid())
    //{
